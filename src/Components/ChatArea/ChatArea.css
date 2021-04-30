@@ -2,6 +2,7 @@
   flex: 0.65;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 }
 
 .chat_header {
@@ -65,4 +66,34 @@
 .chat_timestamp {
   margin-left: 10px;
   font-size: xx-small;
+}
+
+.chat_footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+  border-top: 1px solid lightgrey;
+}
+
+.chat_footer > form {
+  flex: 1;
+  display: flex;
+}
+
+.chat_footer > form > input{
+  flex: 1;
+  border-radius: 30px;
+  padding: 10px;
+  border: none;
+  margin-right: 10px;
+}
+
+.chat_footer > form > button{
+  display: none;
+}
+
+.chat_footer > .MuiSvgIcon-root {
+   padding: 10px;
+   color: grey;
 }

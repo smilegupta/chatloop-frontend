@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
-
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon"
 const ChatArea = () => {
   const [seed, setSeed] = useState("");
 
@@ -46,7 +46,13 @@ const ChatArea = () => {
         </p>
       </div>
 
-      <div className="chat_footer"></div>
+      <div className="chat_footer">
+        <InsertEmoticonIcon />
+        <form>
+            <input type="text" placeholder="Type a message"/>
+            <button> Send a message</button>
+        </form>
+      </div>
     </div>
   );
 };
