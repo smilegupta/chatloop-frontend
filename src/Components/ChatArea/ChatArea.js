@@ -32,7 +32,20 @@ const ChatArea = () => {
           </IconButton>
         </div>
       </div>
-      <div className="chat_body"></div>
+      <div className="chat_body">
+        <p className="chat_message">
+          <span className="chat_name">Srushith Repakula</span>
+          Hey SweetHeart
+          <span className="chat_timestamp">12:13am</span>
+        </p>
+
+        <p className="chat_message chat_reciever">
+          <span className="chat_name">Smile Gupta</span>
+          Heya Luvu
+          <span className="chat_timestamp">12:14am</span>
+        </p>
+      </div>
+
       <div className="chat_footer"></div>
     </div>
   );
