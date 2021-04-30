@@ -1,6 +1,15 @@
+import "./App.css"
+import Sidebar from "./Components/Sidebar/Sidebar"
+import ChatArea from "./Components/ChatArea/ChatArea"
+
 function App() {
   return (
-    <h1> I am Chat Loop App</h1>
+    <div className="app">
+      <div className="app_body" >
+        <Sidebar />
+        <ChatArea />
+      </div>
+    </div>
   );
 }
 
