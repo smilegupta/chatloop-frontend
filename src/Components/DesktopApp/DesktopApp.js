@@ -3,8 +3,8 @@ import ChatArea from "./ChatArea/ChatArea";
 
 const DesktopApp = () => {
   return (
-    <div className="app_desktop">
-      <div className="app_desktop_body">
+    <div className="app">
+      <div className="app_body">
         <Sidebar />
         <ChatArea />
       </div>

@@ -29,7 +29,7 @@ const ChatArea = () => {
         </div>
       </div>
       <div className="chat_body">
-        <p className="chat_message chat_sender_arrow">
+        <p className="chat_message chat_sender">
           <span className="chat_name">Srushith Repakula</span>
           <span>
             lacus vel facilisis volutpat est velit egestas dui id ornare arcu
@@ -40,14 +40,13 @@ const ChatArea = () => {
           </span>
           <span className="chat_timestamp">12:13am</span>
         </p>
-        <p className="chat_message chat_reciever chat_reciever_arrow">
+        <p className="chat_message chat_reciever">
           <span> Hey </span>
           <br />
-          <span className="chat_timestamp">12:14am</span>
+          <span className="chat_reciever_timestamp">12:14am</span>
         </p>
       </div>
       <div className="chat_footer">
-        <InsertEmoticonIcon />
         <form>
           <input type="text" placeholder="Type a message" />
           <button> Send a message</button>

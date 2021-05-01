@@ -11,10 +11,10 @@ body {
 }
 
 ::placeholder {
-  color: grey;
+  color: #B6C8EB;
 }
 
-/************ Desktop App CSS ****************/
+/************ Mobile App CSS ****************/
 
 .app_desktop {
   height: 100vh;
@@ -22,7 +22,25 @@ body {
 
 .app_desktop_body {
   display: flex;
-  background-color: #ededed;
+  background-color: #ffffff;
   height: 100vh;
   width: 100vw;
+}
+
+/************ Desktop App CSS ****************/
+
+.app {
+  display: grid;
+  place-items: center;
+  background-color: #3855AA;
+  height: 100vh;
+}
+
+.app_body{
+  display: flex;
+  height: 95vh;
+  width: 95vw;
+  background-color: #E1E7F7;
+  border-radius: 20px;
+  box-shadow: -1px 4px 20px -6px rgba(94, 84, 112, 1);
 }
