@@ -122,6 +122,9 @@
   height: 24px;
   margin-left: 10px;
   color:  #5E5470;
+  margin-bottom: 20px;
+  box-shadow: 1px 4px 20px -6px #5e5470;
+  padding-left: 20px;
 }
 
 .chat_footer > form > input:focus-visible {
