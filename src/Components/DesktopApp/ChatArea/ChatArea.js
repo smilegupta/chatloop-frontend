@@ -2,7 +2,7 @@ import { Avatar, IconButton } from "@material-ui/core";
 import "./ChatArea.css";
 import { useEffect, useState } from "react";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+// import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 const ChatArea = () => {
   const [seed, setSeed] = useState("");
 
