@@ -2,7 +2,6 @@ import { Avatar, IconButton } from "@material-ui/core";
 import "./ChatArea.css";
 import { useEffect, useState } from "react";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 const ChatArea = () => {
   const [seed, setSeed] = useState("");
 
@@ -17,10 +16,6 @@ const ChatArea = () => {
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className="mobile_chat_header_info">
           <h3>Room Name</h3>
-          <p>
-            lacus vel facilisis volutpat est velit egestas dui id ornare arcu
-            odio ut sem nulla pharetra diam sil pharetra diam sil pharetra{" "}
-          </p>
         </div>
         <div className="mobile_chat_header_right">
           <IconButton>
@@ -43,11 +38,10 @@ const ChatArea = () => {
         <p className="mobile_chat_message mobile_chat_reciever mobile_chat_reciever_arrow">
           <span> Hey </span>
           <br />
-          <span className="mobile_chat_timestamp">12:14am</span>
+          <span className="mobile_chat_reciever_timestamp">12:14am</span>
         </p>
       </div>
       <div className="mobile_chat_footer">
-        <InsertEmoticonIcon />
         <form>
           <input type="text" placeholder="Type a message" />
           <button> Send a message</button>
