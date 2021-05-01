@@ -13,7 +13,6 @@ const ChatArea = () => {
 
   return (
     <div className="chat">
-
       <div className="chat_header">
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className="chat_header_info">
@@ -29,7 +28,6 @@ const ChatArea = () => {
           </IconButton>
         </div>
       </div>
-
       <div className="chat_body">
         <p className="chat_message chat_sender_arrow">
           <span className="chat_name">Srushith Repakula</span>
@@ -48,7 +46,6 @@ const ChatArea = () => {
           <span className="chat_timestamp">12:14am</span>
         </p>
       </div>
-
       <div className="chat_footer">
         <InsertEmoticonIcon />
         <form>
@@ -56,7 +53,6 @@ const ChatArea = () => {
           <button> Send a message</button>
         </form>
       </div>
-
     </div>
   );
 };
