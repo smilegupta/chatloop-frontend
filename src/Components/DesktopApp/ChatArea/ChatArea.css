@@ -1,9 +1,13 @@
+/************ General CSS ****************/
+
 .chat {
-  flex: 0.65;
+  flex: 0.7;
   display: flex;
   flex-direction: column;
   overflow: scroll;
 }
+
+/************ Chat Header ****************/
 
 .chat_header {
   padding: 20px;
@@ -24,21 +28,45 @@
 
 .chat_header_info > p {
   color: grey;
+  font-size: 14px;
 }
 
 .chat_header_right {
   display: flex;
   justify-content: space-between;
-  min-width: 100px;
+  min-width: 20px;
 }
+
+/************ Chat Body ****************/
 
 .chat_body {
   flex: 1;
   background-repeat: repeat;
   background-position: center;
-  padding: 30px;
+  padding: 5%;
   overflow: scroll;
   background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+}
+
+/************ Chat Messages ****************/
+
+.chat_message {
+  position: relative;
+  font-size: 16px;
+  padding: 6px 7px 8px 9px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  min-width: 10vw;
+  width: fit-content;
+  max-width: 30vw;
+  margin-bottom: 30px;
+}
+
+.chat_name {
+  font-size: 11px;
+  margin-bottom: 5px; 
+  display: block;
+  font-weight: bold;
 }
 
 .chat_reciever {
@@ -46,27 +74,42 @@
   background-color: #dcf8c6 !important;
 }
 
-.chat_message {
-  position: relative;
-  font-size: 16px;
-  padding: 10px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: fit-content;
-  margin-bottom: 30px;
-}
-
-.chat_name {
-  position: absolute;
-  top: -15px;
-  font-weight: 800;
-  font-size: xx-small;
-}
-
 .chat_timestamp {
-  margin-left: 10px;
   font-size: xx-small;
+  text-align: right;
+  display: block;
+  color: grey;
+  margin-top: 5px;
 }
+
+
+.chat_sender_arrow:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -10px;
+	right: auto;
+  top: 0px;
+	bottom: auto;
+	border: 11px solid;
+	border-color: #ffffff transparent transparent transparent;
+}
+
+.chat_reciever_arrow:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: -10px;
+  top: 0px;
+	bottom: auto;
+	border: 11px solid;
+	border-color: #dcf8c6 transparent transparent transparent;
+}
+
+/************ Chat Footer ****************/
 
 .chat_footer{
   display: flex;
@@ -88,6 +131,11 @@
   border: none;
   margin-right: 10px;
 }
+
+.chat_footer > form > input:focus-visible{
+  outline: none;
+}
+
 
 .chat_footer > form > button{
   display: none;

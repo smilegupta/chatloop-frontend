@@ -1,8 +1,12 @@
+/************ General CSS ****************/
+
 .sidebar {
-  flex: 0.35;
+  flex: 0.3;
   display: flex;
   flex-direction: column;
 }
+
+/************ Sidebar Header ****************/
 
 .sidebar_header {
   display: flex;
@@ -15,13 +19,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 10vw;
+  min-width: 5vw;
 }
 
 .side_header_right > .MuiSvgIcon-root {
   margin-right: 2vw;
   font-size: 24px !important;
 }
+
+/************ Sidebar Search Container ****************/
 
 .sidebar_search {
   display: flex;
@@ -41,7 +47,13 @@
 }
 .sidebar_search_container > input {
   border: none;
-  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+  padding: 10px;
+}
+
+.sidebar_search_container > input:focus-visible {
+  outline: none;
 }
 
 .sidebar_search_container > .MuiSvgIcon-root {
@@ -49,8 +61,31 @@
   padding: 10px;
 }
 
+/************ Sidebar Chats ****************/
+
 .sidebar_chats {
   flex: 1;
   background-color: white;
   overflow: scroll;
 }
+
+.sidebar_chat {
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.sidebar_chat:hover {
+  background-color: #ebebeb;
+}
+
+.sidebar_chat_info > h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.sidebar_chat_info {
+  margin-left: 15px;
+}
+
