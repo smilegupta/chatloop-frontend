@@ -1,0 +1,90 @@
+/************ General CSS ****************/
+
+.mobile_sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/************ mobile_sidebar Header ****************/
+
+.mobile_sidebar_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-right: 1px solid lightgray;
+}
+
+.mobile_sidebar_header_right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 5vw;
+}
+
+.mobile_sidebar_header_right > .MuiSvgIcon-root {
+  margin-right: 2vw;
+  font-size: 24px !important;
+}
+
+/************ mobile_sidebar Search Container ****************/
+
+.mobile_sidebar_search {
+  display: flex;
+  align-items: center;
+  background-color: #f6f6f6;
+  height: 39px;
+  padding: 10px;
+}
+
+.mobile_sidebar_search_container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  height: 35px;
+  border-radius: 20px;
+}
+.mobile_sidebar_search_container > input {
+  border: none;
+  margin-right: 10px;
+  width: 100%;
+  padding: 10px;
+}
+
+.mobile_sidebar_search_container > input:focus-visible {
+  outline: none;
+}
+
+.mobile_sidebar_search_container > .MuiSvgIcon-root {
+  color: grey;
+  padding: 10px;
+}
+
+/************ mobile_sidebar Chats ****************/
+
+.mobile_sidebar_chats {
+  flex: 1;
+  background-color: white;
+  overflow: scroll;
+}
+
+.mobile_sidebar_chat {
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.mobile_sidebar_chat:hover {
+  background-color: #ebebeb;
+}
+
+.mobile_sidebar_chat_info > h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.mobile_sidebar_chat_info {
+  margin-left: 15px;
+}

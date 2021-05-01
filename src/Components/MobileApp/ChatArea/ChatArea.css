@@ -1,0 +1,145 @@
+/************ General CSS ****************/
+
+.mobile_chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+/************ mobile_chat Header ****************/
+
+.mobile_chat_header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
+}
+
+.mobile_chat_header_info {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.mobile_chat_header_info > h3 {
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.mobile_chat_header_info > p {
+  color: grey;
+  font-size: 14px;
+}
+
+.mobile_chat_header_right {
+  display: flex;
+  justify-content: space-between;
+  min-width: 20px;
+}
+
+/************ mobile_chat Body ****************/
+
+.mobile_chat_body {
+  flex: 1;
+  background-repeat: repeat;
+  background-position: center;
+  padding: 5%;
+  overflow: scroll;
+  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+}
+
+/************ mobile_chat Messages ****************/
+
+.mobile_chat_message {
+  position: relative;
+  font-size: 16px;
+  padding: 6px 7px 8px 9px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  min-width: 30vw;
+  width: fit-content;
+  max-width: 80vw;
+  margin-bottom: 30px;
+}
+
+.mobile_chat_name {
+  font-size: 11px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+}
+
+.mobile_chat_reciever {
+  margin-left: auto;
+  background-color: #dcf8c6 !important;
+}
+
+.mobile_chat_timestamp {
+  font-size: xx-small;
+  text-align: right;
+  display: block;
+  color: grey;
+  margin-top: 5px;
+}
+
+.mobile_chat_sender_arrow:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -10px;
+  right: auto;
+  top: 0px;
+  bottom: auto;
+  border: 11px solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+.mobile_chat_reciever_arrow:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: -10px;
+  top: 0px;
+  bottom: auto;
+  border: 11px solid;
+  border-color: #dcf8c6 transparent transparent transparent;
+}
+
+/************ mobile_chat Footer ****************/
+
+.mobile_chat_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+  border-top: 1px solid lightgrey;
+}
+
+.mobile_chat_footer > form {
+  flex: 1;
+  display: flex;
+}
+
+.mobile_chat_footer > form > input {
+  flex: 1;
+  border-radius: 30px;
+  padding: 10px;
+  border: none;
+  margin-right: 10px;
+}
+
+.mobile_chat_footer > form > input:focus-visible {
+  outline: none;
+}
+
+.mobile_chat_footer > form > button {
+  display: none;
+}
+
+.mobile_chat_footer > .MuiSvgIcon-root {
+  padding: 10px;
+  color: grey;
+}
