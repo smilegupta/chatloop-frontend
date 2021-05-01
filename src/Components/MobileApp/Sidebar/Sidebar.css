@@ -4,7 +4,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+  margin: 20px;
+  background-color: #ffffff;
+  box-shadow: -1px 4px 20px -6px rgba(94, 84, 112, 1);
 }
+
 
 /************ mobile_sidebar Header ****************/
 
@@ -12,19 +17,19 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  border-right: 1px solid lightgray;
 }
 
-.mobile_sidebar_header_right {
+.side_header_right {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-width: 5vw;
 }
 
-.mobile_sidebar_header_right > .MuiSvgIcon-root {
+.side_header_right > .MuiSvgIcon-root {
   margin-right: 2vw;
   font-size: 24px !important;
+  fill: #B6C8EB  !important;
 }
 
 /************ mobile_sidebar Search Container ****************/
@@ -32,7 +37,6 @@
 .mobile_sidebar_search {
   display: flex;
   align-items: center;
-  background-color: #f6f6f6;
   height: 39px;
   padding: 10px;
 }
@@ -40,16 +44,22 @@
 .mobile_sidebar_search_container {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: #E1E7F7;
   width: 100%;
-  height: 35px;
   border-radius: 20px;
+  height: 48px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .mobile_sidebar_search_container > input {
   border: none;
-  margin-right: 10px;
   width: 100%;
   padding: 10px;
+  background-color: #E1E7F7;
+  border-radius: 20px;
+  height: 24px;
+  margin-left: 10px;
+  color:  #5E5470;
 }
 
 .mobile_sidebar_search_container > input:focus-visible {
@@ -57,7 +67,7 @@
 }
 
 .mobile_sidebar_search_container > .MuiSvgIcon-root {
-  color: grey;
+  color: #A6A4AE;
   padding: 10px;
 }
 
@@ -67,6 +77,8 @@
   flex: 1;
   background-color: white;
   overflow: scroll;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .mobile_sidebar_chat {
@@ -76,15 +88,27 @@
   border-bottom: 1px solid #f6f6f6;
 }
 
+.mobile_sidebar_chat_selected {
+  background-color: #E1E7F7;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-right: #E1E7F7;
+  border-left: 3px solid #DE2B64;
+}
+
 .mobile_sidebar_chat:hover {
-  background-color: #ebebeb;
+  background-color: #B6C8EB;
 }
 
 .mobile_sidebar_chat_info > h2 {
   font-size: 16px;
   margin-bottom: 8px;
+  color: #5E5470;
 }
 
 .mobile_sidebar_chat_info {
   margin-left: 15px;
+  font-size: 12px;
+  color: #A6A4AE;
 }
