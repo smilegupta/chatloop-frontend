@@ -63,10 +63,6 @@
   box-shadow: 1px 4px 20px -6px rgba(94, 84, 112, 1);
 }
 
-.chat_sender{
-  border-bottom-left-radius: 0px;
-}
-
 .chat_name {
   color: #5E5470;
   font-size: 12px;
@@ -79,7 +75,6 @@
   margin-left: auto;
   background-color: #DE2B64 !important;
   color: #ffffff;
-  border-bottom-right-radius: 0px !important;
 }
 
 .chat_timestamp {

@@ -68,10 +68,6 @@
   box-shadow: 1px 4px 20px -6px rgba(94, 84, 112, 1);
 }
 
-.mobile_chat_sender {
-  border-bottom-left-radius: 0px;
-}
-
 .mobile_chat_name {
   color: #5e5470;
   font-size: 12px;
@@ -84,7 +80,6 @@
   margin-left: auto;
   background-color: #de2b64 !important;
   color: #ffffff;
-  border-bottom-right-radius: 0px !important;
 }
 
 .mobile_chat_timestamp {
