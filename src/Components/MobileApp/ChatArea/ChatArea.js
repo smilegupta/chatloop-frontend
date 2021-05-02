@@ -15,7 +15,7 @@ const ChatArea = () => {
 
   // Random Seed
   useEffect(() => {
-    setSeed(Math.floor(Math.random() * 5000));
+    setSeed(Math.floor(Math.random() * 50));
   }, []);
 
   return (
@@ -26,7 +26,7 @@ const ChatArea = () => {
         <ArrowBackIcon /> 
         </Link>
         </IconButton>
-        <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
+        <Avatar src={`https://avatars.dicebear.com/api/jdenticon/${seed}.svg`} />
         <div className="mobile_chat_header_info">
           <h3>{data.name}</h3>
         </div>
@@ -37,7 +37,7 @@ const ChatArea = () => {
         </div>
       </div>
       <div className="mobile_chat_body">
-        <p className="mobile_chat_message mobile_chat_sender_arrow">
+        <p className="mobile_chat_message">
           <span className="mobile_chat_name">Srushith Repakula</span>
           <span>
             lacus vel facilisis volutpat est velit egestas dui id ornare arcu

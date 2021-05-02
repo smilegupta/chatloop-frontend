@@ -10,7 +10,7 @@ const Sidebar = () => {
   return (
     <div className="mobile_sidebar">
       <div className="mobile_sidebar_header">
-        <Avatar />
+        <Avatar src="https://avatars.dicebear.com/api/bottts/67.svg" />
         <div className="side_header_right">
           <IconButton>
             <ChatIcon />

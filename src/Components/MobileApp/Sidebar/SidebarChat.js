@@ -15,7 +15,7 @@ const SidebarChat = ({
 
   // Random Seed
   useEffect(() => {
-    setSeed(Math.floor(Math.random() * 5000));
+    setSeed(Math.floor(Math.random() * 50));
   }, []);
 
   return (
@@ -25,7 +25,7 @@ const SidebarChat = ({
           selected ? "mobile_sidebar_chat_selected" : ""
         }`}
       >
-        <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
+        <Avatar src={`https://avatars.dicebear.com/api/jdenticon/${seed}.svg`} />
         <div className="mobile_sidebar_chat_info">
           <h2> {name} </h2>
           <p className="mobile_sidebar_chat_elipse"> {lastMessage} </p>

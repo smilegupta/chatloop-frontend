@@ -14,7 +14,7 @@ const ChatArea = (props) => {
 
   // Random Seed
   useEffect(() => {
-    setSeed(Math.floor(Math.random() * 5000));
+    setSeed(Math.floor(Math.random() * 50));
   }, []);
 
   return (
@@ -23,7 +23,7 @@ const ChatArea = (props) => {
         <Fragment>
           <div className="chat_header">
             <Avatar
-              src={`https://avatars.dicebear.com/api/human/${seed}.svg`}
+              src={`https://avatars.dicebear.com/api/jdenticon/${seed}.svg`}
             />
             <div className="chat_header_info">
               <h3>{data.name}</h3>
@@ -36,7 +36,7 @@ const ChatArea = (props) => {
             </div>
           </div>
           <div className="chat_body">
-            <p className="chat_message chat_sender">
+            <p className="chat_message">
               <span className="chat_name">Srushith Repakula</span>
               <span>
                 lacus vel facilisis volutpat est velit egestas dui id ornare
