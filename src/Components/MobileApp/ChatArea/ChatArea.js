@@ -2,8 +2,16 @@ import { Avatar, IconButton } from "@material-ui/core";
 import "./ChatArea.css";
 import { useEffect, useState } from "react";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { useParams } from "react-router-dom";
+import { chatroom } from "../../../dummychat";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from "react-router-dom"
 const ChatArea = () => {
   const [seed, setSeed] = useState("");
+  const { roomId } = useParams();
+
+  const data = chatroom.find((p) => p.chatRoomId === roomId);
+
 
   // Random Seed
   useEffect(() => {
@@ -13,9 +21,14 @@ const ChatArea = () => {
   return (
     <div className="mobile_chat">
       <div className="mobile_chat_header">
+      <IconButton>
+        <Link to="/">
+        <ArrowBackIcon /> 
+        </Link>
+        </IconButton>
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className="mobile_chat_header_info">
-          <h3>Room Name</h3>
+          <h3>{data.name}</h3>
         </div>
         <div className="mobile_chat_header_right">
           <IconButton>

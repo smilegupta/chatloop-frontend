@@ -16,6 +16,10 @@
   align-items: center;
 }
 
+.mobile_chat_header > .MuiSvgIcon-root {
+  color: grey;
+}
+
 .mobile_chat_header_info {
   flex: 1;
   padding-left: 20px;
