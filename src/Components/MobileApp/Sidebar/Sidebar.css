@@ -4,10 +4,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  margin: 20px;
   background-color: #ffffff;
-  box-shadow: -1px 4px 20px -6px rgba(94, 84, 112, 1);
 }
 
 
@@ -39,6 +36,7 @@
   align-items: center;
   height: 39px;
   padding: 10px;
+  margin-bottom: 20px;
 }
 
 .mobile_sidebar_search_container {
