@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat";
+import { chatroom } from "../../../dummychat"
 
 const Sidebar = () => {
   return (
@@ -26,10 +27,9 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="sidebar_chats">
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
+        {chatroom.map((chat,idx) => 
+          <SidebarChat key={idx} chatRoomId={chat.chatRoomId} name={chat.name} description={chat.description} lastMessage={chat.lastMessage} />
+        )}
       </div>
     </div>
   );

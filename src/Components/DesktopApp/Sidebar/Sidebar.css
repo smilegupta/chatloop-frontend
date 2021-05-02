@@ -112,3 +112,10 @@
   font-size: 12px;
   color: #A6A4AE;
 }
+
+.sidebar_chat_elipse {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; 
+}

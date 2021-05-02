@@ -116,7 +116,7 @@
   flex: 1;
   padding: 10px;
   border: none;
-  margin-right: 10px;
+  margin-right: 20px;
   background-color: #ffffff;
   border-radius: 20px;
   height: 24px;
@@ -138,4 +138,8 @@
 .chat_footer > .MuiSvgIcon-root {
   padding: 10px;
   color: grey;
+}
+
+.chat_no_room_selected {
+  color: #DE2B64;
 }
