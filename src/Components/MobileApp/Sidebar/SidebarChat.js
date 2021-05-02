@@ -1,8 +1,15 @@
 import { Avatar } from "@material-ui/core";
 import React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const SidebarChat = ({selected}) => {
+const SidebarChat = ({
+  selected,
+  chatRoomId,
+  name,
+  description,
+  lastMessage,
+}) => {
   // State Variables
   const [seed, setSeed] = useState("");
 
@@ -12,13 +19,19 @@ const SidebarChat = ({selected}) => {
   }, []);
 
   return (
-    <div className={`mobile_sidebar_chat ${selected ? "mobile_sidebar_chat_selected" : ""}`} >
-      <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
-      <div className="mobile_sidebar_chat_info">
-        <h2> Room Name </h2>
-        <p> Last Message ....</p>
+    <Link to={`/rooms/${chatRoomId}`}>
+      <div
+        className={`mobile_sidebar_chat ${
+          selected ? "mobile_sidebar_chat_selected" : ""
+        }`}
+      >
+        <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
+        <div className="mobile_sidebar_chat_info">
+          <h2> {name} </h2>
+          <p className="mobile_sidebar_chat_elipse"> {lastMessage} </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
