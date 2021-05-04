@@ -5,8 +5,17 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat";
 import { chatroom } from "../../../dummychat"
+// import {useEffect} from "react"
+// import { axiosFun } from "../../../CRUD/axios.config"
+// import {listAllChatRooms} from "../../../CRUD/queries"
 
 const Sidebar = () => {
+  // useEffect( async () => {
+  //   const res = await axiosFun(listAllChatRooms)
+  //   console.log(res)
+      
+  // }, []);
+
   return (
     <div className="sidebar">
       <div className="sidebar_header">
