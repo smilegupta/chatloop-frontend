@@ -57,6 +57,7 @@ const NewPassword = () => {
         }}
       >
         <Grid
+          container
           item
           lg={6}
           md={6}
@@ -72,8 +73,9 @@ const NewPassword = () => {
           justify="center"
           direction="column"
           container
-          lg="6"
-          md="6"
+          item
+          lg={6}
+          md={6}
           style={{
             height: "100%",
             width: "100%",
@@ -84,7 +86,7 @@ const NewPassword = () => {
             backgroundColor: "white",
           }}
         >
-          <Typography variant="h5" gutterBottom color="secondary">
+          <Typography variant="h5" gutterBottom color="primary">
             Reset Password
           </Typography>
           <form noValidate autoComplete="false" onSubmit={handleSubmit}>

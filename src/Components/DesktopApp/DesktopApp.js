@@ -8,7 +8,6 @@ import ForgetPassword from "./AuthScreens/ForgetPassword";
 import NewPassword from "./AuthScreens/NewPassword";
 
 const DesktopApp = ({ auth }) => {
-  console.log(auth);
   return (
     <Fragment>
       {!auth.isAuthenticated ? (

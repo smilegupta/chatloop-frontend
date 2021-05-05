@@ -24,49 +24,43 @@ const useStyles = makeStyles({
 
 const Signup = () => {
   const classes = useStyles();
-  const [title, setTitle] = useState("");
-  const [details, setDetails] = useState("");
-  const [titleError, setTitleError] = useState(false);
-  const [detailsError, setDetailsError] = useState(false);
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [emailError, setemailError] = useState(false);
+  const [passwordError, setpasswordError] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTitleError(false);
-    setDetailsError(false);
+    setemailError(false);
+    setpasswordError(false);
 
-    if (title === "") {
-      setTitleError(true);
+    if (email === "") {
+      setemailError(true);
     }
-    if (details === "") {
-      setDetailsError(true);
+    if (password === "") {
+      setpasswordError(true);
     }
-    if (title && details) {
-      console.log(title, details);
+    if (email && password) {
+      console.log(email, password);
     }
   };
+
   return (
-    <Container disableGutters style={{ margin: "0" }}>
-      <Grid
-        container
-        style={{
-          height: "100%",
-          width: "100%",
-          borderTopLeftRadius: "20px",
-          borderBottomLeftRadius: "20px",
-        }}
-      >
+    <div className="mobile_login_container">
+      <Container disableGutters style={{ margin: "0", height: "100vh" }}>
         <Grid
           align="center"
           justify="center"
           direction="column"
           container
           item
-          lg={6}
-          md={6}
+          xs={12}
+          sm={12}
           style={{
             height: "100%",
             width: "100%",
-            borderTopLeftRadius: "20px",
-            borderBottomLeftRadius: "20px",
+            borderTopRightRadius: "20px",
+            borderBottomRightRadius: "20px",
             textAlign: "left",
             padding: "20px",
             backgroundColor: "white",
@@ -83,8 +77,8 @@ const Signup = () => {
               fullWidth
               className={classes.field}
               type="text"
-              error={titleError}
-              onChange={(e) => setTitle(e.target.value)}
+              error={emailError}
+              onChange={(e) => setemail(e.target.value)}
             />
 
             <TextField
@@ -94,19 +88,20 @@ const Signup = () => {
               fullWidth
               className={classes.field}
               type="email"
-              error={titleError}
-              onChange={(e) => setTitle(e.target.value)}
+              error={emailError}
+              onChange={(e) => setemail(e.target.value)}
             />
             <TextField
-              onChange={(e) => setDetails(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               label="Password"
               variant="outlined"
               required
               fullWidth
               type="password"
-              error={detailsError}
+              error={passwordError}
               className={classes.field}
             />
+
             <Button
               type="submit"
               color="primary"
@@ -123,27 +118,16 @@ const Signup = () => {
             className={classes.subtitles}
           >
             Already Have Account?{" "}
-            <Link to="signin">
+            <Link to="/signin">
               <span style={{ color: "#5E5470" }} className="cursor-pointer">
-                Sign In
+                {" "}
+                Sign In{" "}
               </span>
             </Link>
           </Typography>
         </Grid>
-        <Grid
-          container
-          item
-          lg={6}
-          md={6}
-          style={{
-            borderTopRightRadius: "20px",
-            borderBottomRightRadius: "20px",
-            backgroundColor: "white",
-          }}
-          className="background2"
-        />
-      </Grid>
-    </Container>
+      </Container>
+    </div>
   );
 };
 

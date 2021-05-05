@@ -57,6 +57,7 @@ const Login = () => {
         }}
       >
         <Grid
+          container
           item
           lg={6}
           md={6}
@@ -72,8 +73,9 @@ const Login = () => {
           justify="center"
           direction="column"
           container
-          lg="6"
-          md="6"
+          item
+          lg={6}
+          md={6}
           style={{
             height: "100%",
             width: "100%",
@@ -126,6 +128,7 @@ const Login = () => {
               color="primary"
               variant="contained"
               disableElevation
+              align="right"
             >
               Sign In
             </Button>

@@ -80,3 +80,10 @@ a {
   background-image: url("./Images/Module.svg");
   background-size: cover;
 }
+
+.mobile_login_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
