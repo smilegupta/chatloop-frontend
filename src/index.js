@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { Amplify } from "aws-amplify";
 import config from "./CRUD/config.json";
+import "react-toastify/dist/ReactToastify.css";
 
 Amplify.configure({
   Auth: {

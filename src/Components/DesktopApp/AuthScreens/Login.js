@@ -8,6 +8,9 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
+toast.configure();
 
 const useStyles = makeStyles({
   field: {
@@ -22,28 +25,46 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = () => {
+const Login = ({ auth }) => {
   const classes = useStyles();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [emailError, setemailError] = useState(false);
   const [passwordError, setpasswordError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setemailError(false);
-    setpasswordError(false);
-
-    if (email === "") {
-      setemailError(true);
-    }
-    if (password === "") {
-      setpasswordError(true);
-    }
-    if (email && password) {
-      console.log(email, password);
-    }
-  };
+    try {
+      const res = await Auth.signIn(email, password);
+      let message = "Signed in successfully! Welcome back!!";
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      //setLoading(false);
+      auth.setAuthenticated(true);
+      auth.setUser(res);
+      //history.push(`/home`);
+    } catch (err) {
+      let error = err.message;
+      if (err.message === "User is not confirmed.") {
+        error =
+          "Your account verification not complete. Please complete the verification before logging in.";
+      }
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      //if (err.message === "User is not confirmed.") setResendEmail(true);
+  }; }
 
   return (
     <Container disableGutters style={{ margin: "0" }}>
