@@ -22,7 +22,7 @@ const DesktopApp = ({ auth }) => {
                   <Login auth={auth}/>
                 </Route>
                 <Route path="/signin">
-                  <Login />
+                  <Login auth={auth}/>
                 </Route>
                 <Route path="/forget-password">
                   <ForgetPassword />
@@ -44,9 +44,10 @@ const DesktopApp = ({ auth }) => {
                   path="/rooms/:roomId"
                   render={(props) => <ChatArea {...props} auth={auth} />}
                 />
-                <Route path="/">
-                  <ChatArea />
-                </Route>
+                <Route
+                  path="/"
+                  render={(props) => <ChatArea {...props} auth={auth} />}
+                />
               </Switch>
             </Router>
           </div>

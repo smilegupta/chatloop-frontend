@@ -1,7 +1,6 @@
 import "./Sidebar.css";
 import { Avatar, IconButton } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SidebarChat from "./SidebarChat";

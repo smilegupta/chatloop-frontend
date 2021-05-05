@@ -29,7 +29,9 @@ const Login = ({ auth }) => {
   const classes = useStyles();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  // eslint-disable-next-line
   const [emailError, setemailError] = useState(false);
+  // eslint-disable-next-line
   const [passwordError, setpasswordError] = useState(false);
 
   const handleSubmit = async (e) => {

@@ -19,10 +19,10 @@ const MobileApp = ({ auth }) => {
                   <Signup />
                 </Route>
                 <Route path="/" exact>
-                  <Login />
+                  <Login auth={auth}/>
                 </Route>
                 <Route path="/signin">
-                  <Login />
+                  <Login auth={auth}/>
                 </Route>
                 <Route path="/forget-password">
                   <ForgetPassword />
@@ -37,11 +37,12 @@ const MobileApp = ({ auth }) => {
           <Router>
             <Switch>
               <Route path="/" exact>
-                <Sidebar />
+                <Sidebar auth={auth} />
               </Route>
-              <Route path="/rooms/:roomId">
-                <ChatArea />
-              </Route>
+              <Route
+                  path="/rooms/:roomId"
+                  render={(props) => <ChatArea {...props} auth={auth} />}
+                />
             </Switch>
           </Router>
         )}
