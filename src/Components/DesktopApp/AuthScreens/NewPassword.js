@@ -39,7 +39,11 @@ const NewPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Auth.forgotPasswordSubmit(params.email, verificationCode.trim(), password);
+      await Auth.forgotPasswordSubmit(
+        params.email,
+        verificationCode.trim(),
+        password
+      );
       toast.success("Password created successfully!", {
         position: "top-right",
         autoClose: 5000,
@@ -60,7 +64,6 @@ const NewPassword = () => {
         draggable: true,
       });
     }
-    
   };
 
   return (
@@ -107,7 +110,7 @@ const NewPassword = () => {
           <Typography variant="h5" gutterBottom color="primary">
             Reset Password
           </Typography>
-          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
               label="Vertification Code"
               variant="outlined"
@@ -120,9 +123,9 @@ const NewPassword = () => {
               value={verificationCode}
             />
             <TextField
-            value={password}
+              value={password}
               onChange={(e) => setpassword(e.target.value)}
-              label="Password"
+              label="New Password"
               variant="outlined"
               required
               fullWidth

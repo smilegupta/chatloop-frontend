@@ -92,7 +92,7 @@ const ForgetPassword = () => {
           <Typography variant="subtitle2" gutterBottom color="secondary">
             Enter the email address associated with your account
           </Typography>
-          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
               value={email}
               label="Email"

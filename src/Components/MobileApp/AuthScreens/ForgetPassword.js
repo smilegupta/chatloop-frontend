@@ -7,7 +7,10 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
+toast.configure();
 
 const useStyles = makeStyles({
   field: {
@@ -23,20 +26,36 @@ const useStyles = makeStyles({
 });
 
 const ForgetPassword = () => {
+  const params = useParams();
+  const history = useHistory();
   const classes = useStyles();
-  const [email, setemail] = useState("");
+  const [email, setemail] = useState(params.email);
+  // eslint-disable-next-line
   const [emailError, setemailError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setemailError(false);
-
-    if (email === "") {
-      setemailError(true);
-    }
-
-    if (email) {
-      console.log(email);
+    try {
+      await Auth.forgotPassword(email);
+      toast.success("Sent a verification code to your email!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      history.push(`/new-password/${email}`);
+    } catch (err) {
+      let error = err.message || "Something went wrong!";
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -73,16 +92,17 @@ const ForgetPassword = () => {
           >
             Enter the email address associated with your account
           </Typography>
-          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
-              label="Name"
+              label="Email"
               variant="outlined"
               required
               fullWidth
               className={classes.field}
-              type="text"
+              type="email"
               error={emailError}
               onChange={(e) => setemail(e.target.value)}
+              value={email}
             />
             <Button
               type="submit"

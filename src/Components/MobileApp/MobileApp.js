@@ -12,27 +12,31 @@ const MobileApp = ({ auth }) => {
     <div className="app_mobile">
       <div className="app_mobile_body">
         {!auth.isAuthenticated ? (
-          <>
-            <Router>
-              <Switch>
-                <Route path="/signup">
-                  <Signup />
-                </Route>
-                <Route path="/" exact>
-                  <Login auth={auth}/>
-                </Route>
-                <Route path="/signin">
-                  <Login auth={auth}/>
-                </Route>
-                <Route path="/forget-password">
-                  <ForgetPassword />
-                </Route>
-                <Route path="/new-password">
-                  <NewPassword />
-                </Route>
-              </Switch>
-            </Router>
-          </>
+          <Router>
+            <Switch>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              <Route path="/" exact>
+                <Login auth={auth} />
+              </Route>
+              <Route path="/signin">
+                <Login auth={auth} />
+              </Route>
+              <Route
+                path="/forgot-password/:email"
+                render={(props) => <ForgetPassword {...props} auth={auth} />}
+              />
+              <Route
+                path="/forgot-password"
+                render={(props) => <ForgetPassword {...props} auth={auth} />}
+              />
+              <Route
+                path="/new-password/:email"
+                render={(props) => <NewPassword {...props} auth={auth} />}
+              />
+            </Switch>
+          </Router>
         ) : (
           <Router>
             <Switch>
@@ -40,9 +44,9 @@ const MobileApp = ({ auth }) => {
                 <Sidebar auth={auth} />
               </Route>
               <Route
-                  path="/rooms/:roomId"
-                  render={(props) => <ChatArea {...props} auth={auth} />}
-                />
+                path="/rooms/:roomId"
+                render={(props) => <ChatArea {...props} auth={auth} />}
+              />
             </Switch>
           </Router>
         )}

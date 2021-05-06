@@ -19,31 +19,22 @@ const DesktopApp = ({ auth }) => {
                   <Signup />
                 </Route>
                 <Route path="/" exact>
-                  <Login auth={auth}/>
+                  <Login auth={auth} />
                 </Route>
                 <Route path="/signin">
-                  <Login auth={auth}/>
+                  <Login auth={auth} />
                 </Route>
                 <Route
                   path="/forgot-password/:email"
-                  render={(props) => (
-                    <ForgetPassword {...props} auth={auth} />
-                  )}
+                  render={(props) => <ForgetPassword {...props} auth={auth} />}
                 />
-                
                 <Route
                   path="/forgot-password"
-                  render={(props) => (
-                    <ForgetPassword {...props} auth={auth} />
-                  )}
+                  render={(props) => <ForgetPassword {...props} auth={auth} />}
                 />
-                
-                
                 <Route
                   path="/new-password/:email"
-                  render={(props) => (
-                    <NewPassword {...props} auth={auth} />
-                  )}
+                  render={(props) => <NewPassword {...props} auth={auth} />}
                 />
               </Switch>
             </Router>
@@ -53,9 +44,9 @@ const DesktopApp = ({ auth }) => {
         <div className="app">
           <div className="app_body">
             <Router>
-            <Sidebar auth={auth} />
+              <Sidebar auth={auth} />
               <Switch>
-              <Route
+                <Route
                   path="/rooms/:roomId"
                   render={(props) => <ChatArea {...props} auth={auth} />}
                 />

@@ -67,7 +67,8 @@ const Login = ({ auth }) => {
         draggable: true,
       });
       //if (err.message === "User is not confirmed.") setResendEmail(true);
-  }; }
+    }
+  };
 
   return (
     <Container disableGutters style={{ margin: "0" }}>
@@ -113,7 +114,7 @@ const Login = ({ auth }) => {
           <Typography variant="h5" gutterBottom color="secondary">
             Sign In
           </Typography>
-          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
               value={email}
               label="Email"
