@@ -24,7 +24,7 @@ export const GetUserDetails = {
 };
 
 export const listAllChatRooms = {
-    query: `query ListChatRooms {
+  query: `query ListChatRooms {
         listChatRoomss {
           items {
             chatRoomId
@@ -33,5 +33,22 @@ export const listAllChatRooms = {
           }
         }
       }
-      `
-}
+      `,
+};
+
+export const createUser = (userId, name) => {
+  const query = {
+    query: `mutation create {
+      createUsers(input : {
+        name: "${name}",
+        userId: "${userId}"
+      })
+      {
+        userId
+        }
+      }
+		  `,
+  };
+  return query;
+};
+

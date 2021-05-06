@@ -15,7 +15,6 @@ toast.configure();
 const useStyles = makeStyles({
   field: {
     marginTop: 20,
-    marginBottom: 20,
     display: "block",
   },
   subtitles: {
@@ -30,6 +29,7 @@ const Login = ({ auth }) => {
   const classes = useStyles();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [resendEmail, setResendEmail] = useState(false);
   // eslint-disable-next-line
   const [emailError, setemailError] = useState(false);
   // eslint-disable-next-line
@@ -66,7 +66,37 @@ const Login = ({ auth }) => {
         pauseOnHover: true,
         draggable: true,
       });
-      //if (err.message === "User is not confirmed.") setResendEmail(true);
+      if (err.message === "User is not confirmed.") setResendEmail(true);
+    }
+  };
+
+  // Resend Confirmation Link
+  const resendConfirmationLink = async (e) => {
+    e.preventDefault();
+    try {
+      await Auth.resendSignUp(email);
+      toast.success(
+        "Verification email resent successfully. Please verify your account by clicking that link before logging in.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
+      setResendEmail(false);
+    } catch (err) {
+      let error = err.message || "Something went wrong!";
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -114,7 +144,7 @@ const Login = ({ auth }) => {
           <Typography variant="h5" gutterBottom color="secondary">
             Sign In
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
             <TextField
               value={email}
               label="Email"
@@ -126,7 +156,19 @@ const Login = ({ auth }) => {
               error={emailError}
               onChange={(e) => setemail(e.target.value)}
             />
+            {resendEmail && (
+              <Typography
+                variant="subtitle2"
+                gutterBottom
+                align="right"
+                className={`cursor-pointer ${classes.subtitles}`}
+                style={{ color: "#5E5470" }}
+              >
+                <span onClick={(e) => resendConfirmationLink(e)}> Missed Confirmation Link?</span>
+              </Typography>
+            )}
             <TextField
+              className={classes.field}
               onChange={(e) => setpassword(e.target.value)}
               label="Password"
               variant="outlined"
