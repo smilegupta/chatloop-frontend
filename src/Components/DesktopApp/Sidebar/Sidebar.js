@@ -48,7 +48,7 @@ const Sidebar = ({ auth }) => {
           <IconButton>
             <SearchOutlinedIcon />
           </IconButton>
-          <IconButton onClick={(e) => setOpen(true)}>
+          <IconButton onClick={() => setOpen(true)}>
             <AddIcon />
           </IconButton>
           <IconButton onClick={(e) => handleLogout(e)}>

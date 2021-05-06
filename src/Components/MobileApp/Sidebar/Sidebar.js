@@ -7,11 +7,13 @@ import SidebarChat from "./SidebarChat";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import CreateGroup from "../CreateGroup";
 toast.configure();
 
 const Sidebar = ({ auth }) => {
   const history = useHistory();
+  const [open, setOpen] = useState(false);
   // Logout Function
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -41,18 +43,15 @@ const Sidebar = ({ auth }) => {
           <Avatar src={auth.conversations.profileImage} />
         )}
         <div className="side_header_right">
-          <IconButton>
+        <IconButton>
+            <SearchOutlinedIcon />
+          </IconButton>
+          <IconButton onClick={() => setOpen(true)}>
             <AddIcon />
           </IconButton>
           <IconButton onClick={(e) => handleLogout(e)}>
             <ExitToAppIcon />
           </IconButton>
-        </div>
-      </div>
-      <div className="mobile_sidebar_search">
-        <div className="mobile_sidebar_search_container">
-          <SearchOutlinedIcon />
-          <input placeholder="Search or start new chat" type="text" />
         </div>
       </div>
       <div className="mobile_sidebar_chats">
@@ -62,10 +61,12 @@ const Sidebar = ({ auth }) => {
             {auth.conversations.conversations.items.map((chat, idx) => (
               <SidebarChat
                 key={idx}
-                chatRoomId={chat.chatRoomId}
-                name={chat.name}
-                description={chat.description}
+                chatRoomId={chat.conversationId}
+                name={chat.conversationName}
                 lastMessage={chat.lastMessage}
+                lastMessageAt={chat.lastMessageAt}
+                conversationImage={chat.conversationImage}
+                conversationType={chat.conversationType}
               />
             ))}{" "}
           </Fragment>
@@ -76,6 +77,7 @@ const Sidebar = ({ auth }) => {
           </div>
         )}
       </div>
+      <CreateGroup open={open} setOpen={setOpen} auth={auth} />
     </div>
   );
 };
