@@ -10,6 +10,8 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
+import { axiosFun } from "../../../CRUD/axios.config";
+import { listUserDetails } from "../../../CRUD/queries";
 toast.configure();
 
 const useStyles = makeStyles({
@@ -51,6 +53,8 @@ const Login = ({ auth }) => {
       //setLoading(false);
       auth.setAuthenticated(true);
       auth.setUser(res);
+      const conversation = await axiosFun(listUserDetails(res.username))
+      auth.setConversations(conversation.data.listUserss.items[0])
       history.push(`/`);
     } catch (err) {
       let error = err.message;

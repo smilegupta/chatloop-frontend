@@ -1,3 +1,6 @@
+import {v4 as uuidv4} from 'uuid';
+import moment from 'moment';
+
 export const GetUserDetails = {
   query: `query GetUserDetails {
         listUserss(userId: "86de105c-2c17-41ef-8b90-a4c1871999cb") {
@@ -36,12 +39,13 @@ export const listAllChatRooms = {
       `,
 };
 
-export const createUser = (userId, name) => {
+export const createUser = (userId, name, profileImage) => {
   const query = {
     query: `mutation create {
       createUsers(input : {
         name: "${name}",
-        userId: "${userId}"
+        userId: "${userId}",
+        profileImage: "${profileImage}"
       })
       {
         userId
@@ -52,3 +56,63 @@ export const createUser = (userId, name) => {
   return query;
 };
 
+export const listUserDetails = (userId) => {
+  const query = {
+    query: `query listUserDetails {
+      listUserss(userId: "${userId}") {
+        items {
+          name
+          profileImage
+          userId
+          conversations {
+            items {
+              conversationId
+              conversationImage
+              conversationName
+              conversationType
+              lastMessage
+              lastMessageAt
+            }
+          }
+        }
+      }
+    }`,
+  };
+  return query;
+};
+
+
+export const createChatRoom = (userId, chatName, description, name) => {
+  const chatId = uuidv4()
+  const query = {
+    query: `mutation MyMutation {
+      createChatRooms(
+        input: {chatRoomId: "${chatId}", createdBy: "${userId}", description: "${description}", name: "${chatName}", chatRoomImage: "https://avatars.dicebear.com/api/jdenticon/${Math.floor(Math.random()*5000)}.svg"}
+      ) {
+        chatRoomId
+        chatRoomImage
+      }
+    }`
+  }
+  return query;
+}
+
+export const sendMessage = (name, chatId, chatName, userId,chatRoomImage, message, conversationType ) => {
+  const query = {
+    query: `mutation sendMessage {
+      sendMessage(
+        authorName: "${name}"
+        conversationId: "${chatId}"
+        conversationImage: "${chatRoomImage}"
+        conversationType: ${conversationType}
+        authorId: "${userId}"
+        message: "${message}"
+        sentAt: "${moment.utc(new Date()).format()}"
+        conversationName: "${chatName}"
+      ) {
+        refMessage
+      }
+    }`
+  }
+  return query;
+}
