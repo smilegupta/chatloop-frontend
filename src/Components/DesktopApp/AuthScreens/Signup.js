@@ -75,7 +75,7 @@ const Signup = () => {
           <Typography variant="h5" gutterBottom color="secondary">
             Sign Up
           </Typography>
-          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <TextField
               label="Name"
               variant="outlined"
