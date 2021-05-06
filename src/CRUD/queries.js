@@ -1,5 +1,5 @@
-import {v4 as uuidv4} from 'uuid';
-import moment from 'moment';
+import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 export const GetUserDetails = {
   query: `query GetUserDetails {
@@ -72,6 +72,7 @@ export const listUserDetails = (userId) => {
               conversationType
               lastMessage
               lastMessageAt
+              description
             }
           }
         }
@@ -81,23 +82,33 @@ export const listUserDetails = (userId) => {
   return query;
 };
 
-
-export const createChatRoom = (userId, chatName, description, name) => {
-  const chatId = uuidv4()
+export const createChatRoom = (userId, chatName, description) => {
+  const chatId = uuidv4();
   const query = {
     query: `mutation MyMutation {
       createChatRooms(
-        input: {chatRoomId: "${chatId}", createdBy: "${userId}", description: "${description}", name: "${chatName}", chatRoomImage: "https://avatars.dicebear.com/api/jdenticon/${Math.floor(Math.random()*5000)}.svg"}
+        input: {chatRoomId: "${chatId}", createdBy: "${userId}", description: "${description}", name: "${chatName}", chatRoomImage: "https://avatars.dicebear.com/api/jdenticon/${Math.floor(
+      Math.random() * 5000
+    )}.svg"}
       ) {
         chatRoomId
         chatRoomImage
       }
-    }`
-  }
+    }`,
+  };
   return query;
-}
+};
 
-export const sendMessage = (name, chatId, chatName, userId,chatRoomImage, message, conversationType ) => {
+export const sendMessage = (
+  name,
+  chatId,
+  chatName,
+  userId,
+  chatRoomImage,
+  message,
+  description,
+  conversationType
+) => {
   const query = {
     query: `mutation sendMessage {
       sendMessage(
@@ -107,12 +118,31 @@ export const sendMessage = (name, chatId, chatName, userId,chatRoomImage, messag
         conversationType: ${conversationType}
         authorId: "${userId}"
         message: "${message}"
+        description: "${description}"
         sentAt: "${moment.utc(new Date()).format()}"
         conversationName: "${chatName}"
       ) {
         refMessage
       }
-    }`
-  }
+    }`,
+  };
   return query;
-}
+};
+
+export const getMessages = (chatId) => {
+  const query = {
+    query: `query getmessages {
+      listMessagess(conversationId: "${chatId}") {
+        items {
+          authorId
+          authorName
+          message
+          messageId
+          sentAt
+        }
+      }
+    }
+    `,
+  };
+  return query;
+};

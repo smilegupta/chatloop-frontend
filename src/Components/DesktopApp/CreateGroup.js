@@ -2,7 +2,11 @@ import { useState } from "react";
 import { makeStyles, TextField, Button, Typography } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { axiosFun } from "../../CRUD/axios.config";
-import { createChatRoom, sendMessage, listUserDetails } from "../../CRUD/queries";
+import {
+  createChatRoom,
+  sendMessage,
+  listUserDetails,
+} from "../../CRUD/queries";
 import { toast } from "react-toastify";
 toast.configure();
 
@@ -49,7 +53,6 @@ export default function CreateGroup({ open, setOpen, auth }) {
       const output = await axiosFun(
         createChatRoom(userId, chatName, description, name)
       );
-      console.log(output);
       const message = "Chat Room Created Successfully";
       toast.success(message, {
         position: "top-right",
@@ -59,10 +62,21 @@ export default function CreateGroup({ open, setOpen, auth }) {
         pauseOnHover: true,
         draggable: true,
       });
-      
-      await axiosFun(sendMessage(name, output.data.createChatRooms.chatRoomId, chatName, userId, output.data.createChatRooms.chatRoomImage, "Welcome to the group", "chatRoom"))
-      const conversation = await axiosFun(listUserDetails(userId))
-      auth.setConversations(conversation.data.listUserss.items[0])
+
+      await axiosFun(
+        sendMessage(
+          name,
+          output.data.createChatRooms.chatRoomId,
+          chatName,
+          userId,
+          output.data.createChatRooms.chatRoomImage,
+          "Welcome to the group",
+          description,
+          "chatRoom"
+        )
+      );
+      const conversation = await axiosFun(listUserDetails(userId));
+      auth.setConversations(conversation.data.listUserss.items[0]);
       setDescription("");
       setChatName("");
       setOpen(false);
@@ -91,7 +105,7 @@ export default function CreateGroup({ open, setOpen, auth }) {
           <Typography variant="h5" gutterBottom color="secondary">
             Create Chat Room
           </Typography>
-          <form onSubmit={(e) =>  handleSubmit(e)}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <TextField
               label="Name"
               variant="outlined"
