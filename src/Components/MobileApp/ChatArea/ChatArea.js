@@ -1,8 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Avatar, IconButton } from "@material-ui/core";
 import "./ChatArea.css";
 import { useEffect, useState, Fragment } from "react";
-import { useParams } from "react-router-dom";
-import { chatroom } from "../../../dummychat";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { axiosFun } from "../../../CRUD/axios.config";
