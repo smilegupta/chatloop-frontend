@@ -7,7 +7,12 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
+import { axiosFun } from "../../../CRUD/axios.config";
+import { createUser } from "../../../CRUD/queries";
+toast.configure();
 
 const useStyles = makeStyles({
   field: {
@@ -23,24 +28,47 @@ const useStyles = makeStyles({
 });
 
 const Signup = () => {
+  const history = useHistory();
   const classes = useStyles();
-  const [title, setTitle] = useState("");
-  const [details, setDetails] = useState("");
-  const [titleError, setTitleError] = useState(false);
-  const [detailsError, setDetailsError] = useState(false);
-  const handleSubmit = (e) => {
+  const [name, setName] = useState("");
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setTitleError(false);
-    setDetailsError(false);
-
-    if (title === "") {
-      setTitleError(true);
-    }
-    if (details === "") {
-      setDetailsError(true);
-    }
-    if (title && details) {
-      console.log(title, details);
+    try {
+      const res = await Auth.signUp({
+        username,
+        password,
+        attributes: {
+          name: name,
+          picture: `https://avatars.dicebear.com/api/bottts/${Math.floor(
+            Math.random() * 5000
+          )}.svg`,
+        },
+      });
+      console.log(res);
+      let output = await axiosFun(createUser(res.userSub, name));
+      console.log(output);
+      let message =
+        "Verification email successfully. Please verify your account by clicking that link before logging in.";
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      history.push(`/signin`);
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
   return (
@@ -83,8 +111,8 @@ const Signup = () => {
               fullWidth
               className={classes.field}
               type="text"
-              error={titleError}
-              onChange={(e) => setTitle(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
 
             <TextField
@@ -94,17 +122,17 @@ const Signup = () => {
               fullWidth
               className={classes.field}
               type="email"
-              error={titleError}
-              onChange={(e) => setTitle(e.target.value)}
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
             />
             <TextField
-              onChange={(e) => setDetails(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               label="Password"
               variant="outlined"
               required
               fullWidth
               type="password"
-              error={detailsError}
+              value={password}
               className={classes.field}
             />
             <Button

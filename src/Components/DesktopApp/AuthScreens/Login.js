@@ -114,7 +114,7 @@ const Login = ({ auth }) => {
           <Typography variant="h5" gutterBottom color="secondary">
             Sign In
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form noValidate autoComplete="false" onSubmit={handleSubmit}>
             <TextField
               value={email}
               label="Email"

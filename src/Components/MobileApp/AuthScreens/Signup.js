@@ -7,7 +7,12 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
+import { axiosFun } from "../../../CRUD/axios.config";
+import { createUser } from "../../../CRUD/queries";
+toast.configure();
 
 const useStyles = makeStyles({
   field: {
@@ -23,25 +28,47 @@ const useStyles = makeStyles({
 });
 
 const Signup = () => {
+  const history = useHistory();
   const classes = useStyles();
-  const [email, setemail] = useState("");
+  const [name, setName] = useState("");
+  const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const [emailError, setemailError] = useState(false);
-  const [passwordError, setpasswordError] = useState(false);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setemailError(false);
-    setpasswordError(false);
-
-    if (email === "") {
-      setemailError(true);
-    }
-    if (password === "") {
-      setpasswordError(true);
-    }
-    if (email && password) {
-      console.log(email, password);
+    try {
+      const res = await Auth.signUp({
+        username,
+        password,
+        attributes: {
+          name: name,
+          picture: `https://avatars.dicebear.com/api/bottts/${Math.floor(
+            Math.random() * 5000
+          )}.svg`,
+        },
+      });
+      console.log(res);
+      let output = await axiosFun(createUser(res.userSub, name));
+      console.log(output);
+      let message =
+        "Verification email successfully. Please verify your account by clicking that link before logging in.";
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      history.push(`/signin`);
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -77,8 +104,8 @@ const Signup = () => {
               fullWidth
               className={classes.field}
               type="text"
-              error={emailError}
-              onChange={(e) => setemail(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
 
             <TextField
@@ -88,8 +115,8 @@ const Signup = () => {
               fullWidth
               className={classes.field}
               type="email"
-              error={emailError}
-              onChange={(e) => setemail(e.target.value)}
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
             />
             <TextField
               onChange={(e) => setpassword(e.target.value)}
@@ -98,10 +125,9 @@ const Signup = () => {
               required
               fullWidth
               type="password"
-              error={passwordError}
+              value={password}
               className={classes.field}
             />
-
             <Button
               type="submit"
               color="primary"
