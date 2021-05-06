@@ -7,7 +7,10 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
+toast.configure();
 
 const useStyles = makeStyles({
   field: {
@@ -23,15 +26,35 @@ const useStyles = makeStyles({
 });
 
 const ForgetPassword = () => {
+  const params = useParams();
+  const history = useHistory();
   const classes = useStyles();
-  const [title, setTitle] = useState("");
-  const [titleError, setTitleError] = useState(false);
-  const handleSubmit = (e) => {
+  const [email, setemail] = useState(params.email);
+  // eslint-disable-next-line
+  const [emailError, setemailError] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setTitleError(false);
-
-    if (title === "") {
-      setTitleError(true);
+    try {
+      await Auth.forgotPassword(email);
+      toast.success("Sent a verification code to your email!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      history.push(`/new-password/${email}`);
+    } catch (err) {
+      let error = err.message || "Something went wrong!";
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
   return (
@@ -71,14 +94,15 @@ const ForgetPassword = () => {
           </Typography>
           <form noValidate autoComplete="false" onSubmit={handleSubmit}>
             <TextField
+              value={email}
               label="Email"
               variant="outlined"
               required
               fullWidth
               className={classes.field}
               type="email"
-              error={titleError}
-              onChange={(e) => setTitle(e.target.value)}
+              error={emailError}
+              onChange={(e) => setemail(e.target.value)}
             />
             <Button
               type="submit"
@@ -96,7 +120,7 @@ const ForgetPassword = () => {
             className={classes.subtitles}
           >
             Try signing in again?
-            <Link to="signin">
+            <Link to="/signin">
               <span style={{ color: "#5E5470" }} className="cursor-pointer">
                 {" "}
                 Sign In

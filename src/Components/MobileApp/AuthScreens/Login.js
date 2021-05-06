@@ -119,7 +119,7 @@ const Login = ({auth}) => {
               className={classes.subtitles}
             >
               Forgot Password?{" "}
-              <Link to="/forget-password">
+              <Link to={`/forgot-password/${email}`}>
                 <span style={{ color: "#5E5470" }} className="cursor-pointer">
                   {" "}
                   Click here{" "}

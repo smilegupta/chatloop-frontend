@@ -7,7 +7,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
 toast.configure();
@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 });
 
 const Login = ({ auth }) => {
+  const history = useHistory();
   const classes = useStyles();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -50,7 +51,7 @@ const Login = ({ auth }) => {
       //setLoading(false);
       auth.setAuthenticated(true);
       auth.setUser(res);
-      //history.push(`/home`);
+      history.push(`/`);
     } catch (err) {
       let error = err.message;
       if (err.message === "User is not confirmed.") {
@@ -114,6 +115,7 @@ const Login = ({ auth }) => {
           </Typography>
           <form noValidate autoComplete="false" onSubmit={handleSubmit}>
             <TextField
+              value={email}
               label="Email"
               variant="outlined"
               required
@@ -131,6 +133,7 @@ const Login = ({ auth }) => {
               fullWidth
               type="password"
               error={passwordError}
+              value={password}
             />
             <Typography
               variant="subtitle2"
@@ -139,7 +142,7 @@ const Login = ({ auth }) => {
               className={classes.subtitles}
             >
               Forgot Password?{" "}
-              <Link to="/forget-password">
+              <Link to={`/forgot-password/${email}`}>
                 <span style={{ color: "#5E5470" }} className="cursor-pointer">
                   {" "}
                   Click here{" "}

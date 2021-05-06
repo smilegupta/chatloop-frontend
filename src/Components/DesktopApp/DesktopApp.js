@@ -24,12 +24,27 @@ const DesktopApp = ({ auth }) => {
                 <Route path="/signin">
                   <Login auth={auth}/>
                 </Route>
-                <Route path="/forget-password">
-                  <ForgetPassword />
-                </Route>
-                <Route path="/new-password">
-                  <NewPassword />
-                </Route>
+                <Route
+                  path="/forgot-password/:email"
+                  render={(props) => (
+                    <ForgetPassword {...props} auth={auth} />
+                  )}
+                />
+                
+                <Route
+                  path="/forgot-password"
+                  render={(props) => (
+                    <ForgetPassword {...props} auth={auth} />
+                  )}
+                />
+                
+                
+                <Route
+                  path="/new-password/:email"
+                  render={(props) => (
+                    <NewPassword {...props} auth={auth} />
+                  )}
+                />
               </Switch>
             </Router>
           </div>

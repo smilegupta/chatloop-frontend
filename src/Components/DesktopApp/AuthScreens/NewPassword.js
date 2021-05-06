@@ -7,7 +7,10 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
+toast.configure();
 
 const useStyles = makeStyles({
   field: {
@@ -23,26 +26,41 @@ const useStyles = makeStyles({
 });
 
 const NewPassword = () => {
+  const params = useParams();
+  const history = useHistory();
   const classes = useStyles();
-  const [email, setemail] = useState("");
+  const [verificationCode, setverificationCode] = useState("");
   const [password, setpassword] = useState("");
-  const [emailError, setemailError] = useState(false);
+  // eslint-disable-next-line
+  const [verificationCodeError, setverificationCodeError] = useState(false);
+  // eslint-disable-next-line
   const [passwordError, setpasswordError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setemailError(false);
-    setpasswordError(false);
-
-    if (email === "") {
-      setemailError(true);
+    try {
+      await Auth.forgotPasswordSubmit(params.email, verificationCode.trim(), password);
+      toast.success("Password created successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      history.push(`/signin`);
+    } catch (err) {
+      let error = err.message || "Something went wrong!";
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
-    if (password === "") {
-      setpasswordError(true);
-    }
-    if (email && password) {
-      console.log(email, password);
-    }
+    
   };
 
   return (
@@ -97,10 +115,12 @@ const NewPassword = () => {
               fullWidth
               className={classes.field}
               type="text"
-              error={emailError}
-              onChange={(e) => setemail(e.target.value)}
+              error={verificationCodeError}
+              onChange={(e) => setverificationCode(e.target.value)}
+              value={verificationCode}
             />
             <TextField
+            value={password}
               onChange={(e) => setpassword(e.target.value)}
               label="Password"
               variant="outlined"
