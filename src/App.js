@@ -4,6 +4,8 @@ import DesktopApp from "./Components/DesktopApp/DesktopApp";
 import MobileApp from "./Components/MobileApp/MobileApp";
 import { Auth } from "aws-amplify";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { axiosFun } from "./CRUD/axios.config";
+import { listUserDetails } from "./CRUD/queries";
 
 function App() {
   // State Varaible
@@ -11,6 +13,7 @@ function App() {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isAuthenticating, setAuthenticating] = useState(true);
   const [user, setUser] = useState(null);
+  const [conversations, setConversations] = useState(null)
 
   // Props for Session Management
   const authProps = {
@@ -18,6 +21,8 @@ function App() {
     user,
     setUser,
     setAuthenticated,
+    conversations,
+    setConversations
   };
 
   const theme = createMuiTheme({
@@ -38,6 +43,8 @@ function App() {
         await Auth.currentSession();
         setAuthenticated(true);
         const currentUser = await Auth.currentAuthenticatedUser();
+        const conversation = await axiosFun(listUserDetails(currentUser.username))
+        setConversations(conversation.data.listUserss.items[0])
         setUser(currentUser);
       } catch (err) {
         console.error(err);

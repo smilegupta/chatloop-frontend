@@ -33,6 +33,9 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const profileImage = `https://avatars.dicebear.com/api/bottts/${Math.floor(
+    Math.random() * 5000
+  )}.svg`;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -41,13 +44,11 @@ const Signup = () => {
         password,
         attributes: {
           name: name,
-          picture: `https://avatars.dicebear.com/api/bottts/${Math.floor(
-            Math.random() * 5000
-          )}.svg`,
+          picture: profileImage,
         },
       });
       console.log(res);
-      let output = await axiosFun(createUser(res.userSub, name));
+      let output = await axiosFun(createUser(res.userSub, name, profileImage));
       console.log(output);
       let message =
         "Verification email successfully. Please verify your account by clicking that link before logging in.";
