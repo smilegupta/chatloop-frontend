@@ -8,9 +8,15 @@ const SidebarChat = ({
   chatRoomId,
   name,
   lastMessage,
+  description,
 }) => {
   return (
-    <Link to={`/rooms/${chatRoomId}`}>
+    <Link
+      to={`/rooms/${chatRoomId}/${name}/${description}/${conversationImage.substring(
+        conversationImage.lastIndexOf("/") + 1,
+        conversationImage.length - 4
+      )}`}
+    >
       <div className="mobile_sidebar_chat">
         <Avatar src={conversationImage} />
         <div className="mobile_sidebar_chat_info">

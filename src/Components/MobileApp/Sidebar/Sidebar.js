@@ -37,48 +37,52 @@ const Sidebar = ({ auth }) => {
     }
   };
   return (
-    <div className="mobile_sidebar">
-      <div className="mobile_sidebar_header">
-        {auth.conversations.profileImage && (
-          <Avatar src={auth.conversations.profileImage} />
-        )}
-        <div className="side_header_right">
-        <IconButton>
-            <SearchOutlinedIcon />
-          </IconButton>
-          <IconButton onClick={() => setOpen(true)}>
-            <AddIcon />
-          </IconButton>
-          <IconButton onClick={(e) => handleLogout(e)}>
-            <ExitToAppIcon />
-          </IconButton>
-        </div>
-      </div>
-      <div className="mobile_sidebar_chats">
-        {auth.conversations.conversations.items.length > 0 ? (
-          <Fragment>
-            {" "}
-            {auth.conversations.conversations.items.map((chat, idx) => (
-              <SidebarChat
-                key={idx}
-                chatRoomId={chat.conversationId}
-                name={chat.conversationName}
-                lastMessage={chat.lastMessage}
-                lastMessageAt={chat.lastMessageAt}
-                conversationImage={chat.conversationImage}
-                conversationType={chat.conversationType}
-              />
-            ))}{" "}
-          </Fragment>
-        ) : (
-          <div className="no_sidebar_chat">
-            {" "}
-            <span> No chats yet. </span>{" "}
+    <Fragment>
+      {auth.conversations && (
+        <div className="mobile_sidebar">
+          <div className="mobile_sidebar_header">
+            <Avatar src={auth.conversations.profileImage} />
+
+            <div className="side_header_right">
+              <IconButton>
+                <SearchOutlinedIcon />
+              </IconButton>
+              <IconButton onClick={() => setOpen(true)}>
+                <AddIcon />
+              </IconButton>
+              <IconButton onClick={(e) => handleLogout(e)}>
+                <ExitToAppIcon />
+              </IconButton>
+            </div>
           </div>
-        )}
-      </div>
-      <CreateGroup open={open} setOpen={setOpen} auth={auth} />
-    </div>
+          <div className="mobile_sidebar_chats">
+            {auth.conversations.conversations.items.length > 0 ? (
+              <Fragment>
+                {" "}
+                {auth.conversations.conversations.items.map((chat, idx) => (
+                  <SidebarChat
+                    key={idx}
+                    chatRoomId={chat.conversationId}
+                    name={chat.conversationName}
+                    lastMessage={chat.lastMessage}
+                    lastMessageAt={chat.lastMessageAt}
+                    conversationImage={chat.conversationImage}
+                    conversationType={chat.conversationType}
+                    description={chat.description}
+                  />
+                ))}{" "}
+              </Fragment>
+            ) : (
+              <div className="no_sidebar_chat">
+                {" "}
+                <span> No chats yet. </span>{" "}
+              </div>
+            )}
+          </div>
+          <CreateGroup open={open} setOpen={setOpen} auth={auth} />
+        </div>
+      )}
+    </Fragment>
   );
 };
 
