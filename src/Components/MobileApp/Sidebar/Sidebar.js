@@ -59,18 +59,23 @@ const Sidebar = ({ auth }) => {
             {auth.conversations.conversations.items.length > 0 ? (
               <Fragment>
                 {" "}
-                {auth.conversations.conversations.items.map((chat, idx) => (
-                  <SidebarChat
-                    key={idx}
-                    chatRoomId={chat.conversationId}
-                    name={chat.conversationName}
-                    lastMessage={chat.lastMessage}
-                    lastMessageAt={chat.lastMessageAt}
-                    conversationImage={chat.conversationImage}
-                    conversationType={chat.conversationType}
-                    description={chat.description}
-                  />
-                ))}{" "}
+                {auth.conversations.conversations.items
+                  .sort(
+                    (a, b) =>
+                      new Date(b.lastMessageAt) - new Date(a.lastMessageAt)
+                  )
+                  .map((chat, idx) => (
+                    <SidebarChat
+                      key={idx}
+                      chatRoomId={chat.conversationId}
+                      name={chat.conversationName}
+                      lastMessage={chat.lastMessage}
+                      lastMessageAt={chat.lastMessageAt}
+                      conversationImage={chat.conversationImage}
+                      conversationType={chat.conversationType}
+                      description={chat.description}
+                    />
+                  ))}{" "}
               </Fragment>
             ) : (
               <div className="no_sidebar_chat">
