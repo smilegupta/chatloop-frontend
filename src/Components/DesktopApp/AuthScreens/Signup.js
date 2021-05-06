@@ -7,7 +7,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
 import { axiosFun } from "../../../CRUD/axios.config";
@@ -33,7 +33,9 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const profileImage = `https://avatars.dicebear.com/api/bottts/${Math.floor(Math.random() * 5000)}.svg`
+  const profileImage = `https://avatars.dicebear.com/api/bottts/${Math.floor(
+    Math.random() * 5000
+  )}.svg`;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,9 +47,7 @@ const Signup = () => {
           picture: profileImage,
         },
       });
-      console.log(res);
-      let output = await axiosFun(createUser(res.userSub, name, profileImage));
-      console.log(output);
+      await axiosFun(createUser(res.userSub, name, profileImage));
       let message =
         "Verification email successfully. Please verify your account by clicking that link before logging in.";
       toast.success(message, {

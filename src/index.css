@@ -87,3 +87,7 @@ a {
   flex-direction: column;
   background-color: #ffffff;
 }
+
+.MuiTab-root {
+  width: 50%;
+}

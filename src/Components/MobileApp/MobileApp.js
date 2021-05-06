@@ -44,7 +44,7 @@ const MobileApp = ({ auth }) => {
                 <Sidebar auth={auth} />
               </Route>
               <Route
-                path="/rooms/:roomId"
+                path="/rooms/:roomId/:name/:description/:img"
                 render={(props) => <ChatArea {...props} auth={auth} />}
               />
             </Switch>

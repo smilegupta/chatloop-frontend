@@ -1,58 +1,48 @@
-import { Avatar, IconButton, Grid } from "@material-ui/core";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Avatar, Grid } from "@material-ui/core";
 import "./ChatArea.css";
 import { Fragment, useEffect, useState } from "react";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useParams } from "react-router-dom";
-import { chatroom } from "../../../dummychat";
 import chatImage from "../../../Images/chat3.svg";
+import { axiosFun } from "../../../CRUD/axios.config";
+import { getMessages } from "../../../CRUD/queries";
+import ChatBubble from "./ChatBubble";
 
-const ChatArea = (props) => {
-  const [seed, setSeed] = useState("");
-  const { roomId } = useParams();
+const ChatArea = ({ match, auth }) => {
+  const userId = auth.conversations.userId;
+  const [data, setData] = useState(null);
 
-  const data = chatroom.find((p) => p.chatRoomId === roomId);
-
-  // Random Seed
   useEffect(() => {
-    setSeed(Math.floor(Math.random() * 50));
-  }, []);
+    getChats();
+  }, [match.params.roomId]);
+
+  const getChats = async () => {
+    const res = await axiosFun(getMessages(match.params.roomId));
+    setData(res.data.listMessagess.items);
+  };
 
   return (
     <div className="chat">
-      {data ? (
+      {data && data.length > 0 ? (
         <Fragment>
           <div className="chat_header">
             <Avatar
-              src={`https://avatars.dicebear.com/api/jdenticon/${seed}.svg`}
+              src={`https://avatars.dicebear.com/api/jdenticon/${match.params.img}.svg`}
             />
             <div className="chat_header_info">
-              <h3>{data.name}</h3>
-              <p>{data.description}</p>
-            </div>
-            <div className="chat_header_right">
-              <IconButton>
-                <MoreVertIcon />
-              </IconButton>
+              <h3>{match.params.name}</h3>
+              <p>{match.params.description}</p>
             </div>
           </div>
           <div className="chat_body">
-            <p className="chat_message">
-              <span className="chat_name">Srushith Repakula</span>
-              <span>
-                lacus vel facilisis volutpat est velit egestas dui id ornare
-                arcu odio ut sem nulla pharetra diam sit amet nisl suscipit
-                adipiscing bibendum est ultricies integer quis auctor elit sed
-                vulputate mi sit amet mauris commodo quis imperdiet massa
-                tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada
-                proin libero nunc{" "}
-              </span>
-              <span className="chat_timestamp">12:13am</span>
-            </p>
-            <p className="chat_message chat_reciever">
-              <span> Hey </span>
-              <br />
-              <span className="chat_reciever_timestamp">12:14am</span>
-            </p>
+            {data.map((chat, idx) => (
+              <ChatBubble
+                key={idx}
+                authorName={chat.authorName}
+                message={chat.message}
+                sentAt={chat.sentAt}
+                sender={chat.authorId === userId ? true : false}
+              />
+            ))}
           </div>
           <div className="chat_footer">
             <form>

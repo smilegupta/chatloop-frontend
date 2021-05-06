@@ -9,11 +9,13 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Fragment, useState } from "react";
 import CreateGroup from "../CreateGroup";
+import JoinGroup from "../JoinGroup";
 toast.configure();
 
 const Sidebar = ({ auth }) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [openJoinGroup, setOpenJoinGroup] = useState(false);
 
   // Logout Function
   const handleLogout = async (e) => {
@@ -39,49 +41,59 @@ const Sidebar = ({ auth }) => {
   };
 
   return (
-    <div className="sidebar">
-      <div className="sidebar_header">
-        {auth.conversations.profileImage && (
-          <Avatar src={auth.conversations.profileImage} />
-        )}
-        <div className="side_header_right">
-          <IconButton>
-            <SearchOutlinedIcon />
-          </IconButton>
-          <IconButton onClick={() => setOpen(true)}>
-            <AddIcon />
-          </IconButton>
-          <IconButton onClick={(e) => handleLogout(e)}>
-            <ExitToAppIcon />
-          </IconButton>
-        </div>
-      </div>
-      {console.log(auth.conversations.conversations.items)}
-      <div className="sidebar_chats">
-        {auth.conversations.conversations.items.length > 0 ? (
-          <Fragment>
-            {" "}
-            {auth.conversations.conversations.items.map((chat, idx) => (
-              <SidebarChat
-                key={idx}
-                chatRoomId={chat.conversationId}
-                name={chat.conversationName}
-                lastMessage={chat.lastMessage}
-                lastMessageAt={chat.lastMessageAt}
-                conversationImage={chat.conversationImage}
-                conversationType={chat.conversationType}
-              />
-            ))}{" "}
-          </Fragment>
-        ) : (
-          <div className="no_sidebar_chat">
-            {" "}
-            <span> No chats yet. </span>{" "}
+    <Fragment>
+      {auth.conversations ? (
+        <div className="sidebar">
+          <div className="sidebar_header">
+            <Avatar src={auth.conversations.profileImage} />
+            <div className="side_header_right">
+              <IconButton onClick={() => setOpenJoinGroup(true)}>
+                <SearchOutlinedIcon />
+              </IconButton>
+              <IconButton onClick={() => setOpen(true)}>
+                <AddIcon />
+              </IconButton>
+              <IconButton onClick={(e) => handleLogout(e)}>
+                <ExitToAppIcon />
+              </IconButton>
+            </div>
           </div>
-        )}
-      </div>
-      <CreateGroup open={open} setOpen={setOpen} auth={auth} />
-    </div>
+          <div className="sidebar_chats">
+            {auth.conversations.conversations.items.length > 0 ? (
+              <Fragment>
+                {" "}
+                {auth.conversations.conversations.items
+                  .sort(
+                    (a, b) =>
+                      new Date(b.lastMessageAt) - new Date(a.lastMessageAt)
+                  )
+                  .map((chat, idx) => (
+                    <SidebarChat
+                      key={idx}
+                      chatRoomId={chat.conversationId}
+                      name={chat.conversationName}
+                      lastMessage={chat.lastMessage}
+                      lastMessageAt={chat.lastMessageAt}
+                      conversationImage={chat.conversationImage}
+                      conversationType={chat.conversationType}
+                      description={chat.description}
+                    />
+                  ))}
+              </Fragment>
+            ) : (
+              <div className="no_sidebar_chat">
+                {" "}
+                <span> No chats yet. </span>{" "}
+              </div>
+            )}
+          </div>
+          <JoinGroup open={openJoinGroup} setOpen={setOpenJoinGroup} />
+          <CreateGroup open={open} setOpen={setOpen} auth={auth} />
+        </div>
+      ) : (
+        <div> Loading </div>
+      )}
+    </Fragment>
   );
 };
 

@@ -47,11 +47,12 @@ const DesktopApp = ({ auth }) => {
               <Sidebar auth={auth} />
               <Switch>
                 <Route
-                  path="/rooms/:roomId"
+                  path="/rooms/:roomId/:name/:description/:img"
                   render={(props) => <ChatArea {...props} auth={auth} />}
                 />
                 <Route
                   path="/"
+                  exact
                   render={(props) => <ChatArea {...props} auth={auth} />}
                 />
               </Switch>

@@ -47,9 +47,8 @@ const Signup = () => {
           picture: profileImage,
         },
       });
-      console.log(res);
-      let output = await axiosFun(createUser(res.userSub, name, profileImage));
-      console.log(output);
+
+      await axiosFun(createUser(res.userSub, name, profileImage));
       let message =
         "Verification email successfully. Please verify your account by clicking that link before logging in.";
       toast.success(message, {
