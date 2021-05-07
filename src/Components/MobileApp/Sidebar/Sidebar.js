@@ -38,7 +38,7 @@ const Sidebar = ({ auth }) => {
   };
   return (
     <Fragment>
-      {auth.conversations && (
+      {auth.conversations  && auth.subscriptionArray && (
         <div className="mobile_sidebar">
           <div className="mobile_sidebar_header">
             <Avatar src={auth.conversations.profileImage} />
@@ -74,6 +74,8 @@ const Sidebar = ({ auth }) => {
                       conversationImage={chat.conversationImage}
                       conversationType={chat.conversationType}
                       description={chat.description}
+                      auth={auth}
+                      newMessages={chat.newMessages}
                     />
                   ))}{" "}
               </Fragment>

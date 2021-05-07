@@ -122,7 +122,13 @@ export const sendMessage = (
         sentAt: "${moment.utc(new Date()).format()}"
         conversationName: "${chatName}"
       ) {
-        refMessage
+        authorId
+        authorName
+        conversationId
+        conversationName
+        message
+        messageId
+        sentAt
       }
     }`,
   };

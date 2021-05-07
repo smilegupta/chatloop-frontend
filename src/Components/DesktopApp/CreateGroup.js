@@ -77,6 +77,7 @@ export default function CreateGroup({ open, setOpen, auth }) {
       );
       const conversation = await axiosFun(listUserDetails(userId));
       auth.setConversations(conversation.data.listUserss.items[0]);
+      auth.setSubscriptionArray(conversation.data.listUserss.items[0].conversations.items)
       setDescription("");
       setChatName("");
       setOpen(false);

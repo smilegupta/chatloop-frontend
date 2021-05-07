@@ -5,11 +5,12 @@ import { useEffect, useState, Fragment } from "react";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { axiosFun } from "../../../CRUD/axios.config";
-import { getMessages } from "../../../CRUD/queries";
+import { getMessages, sendMessage } from "../../../CRUD/queries";
 import ChatBubble from "./ChatBubble";
+
 const ChatArea = ({ match, auth }) => {
-  const userId = auth.conversations.userId;
   const [data, setData] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     getChats();
@@ -18,6 +19,27 @@ const ChatArea = ({ match, auth }) => {
   const getChats = async () => {
     const res = await axiosFun(getMessages(match.params.roomId));
     setData(res.data.listMessagess.items);
+  };
+
+  const sendMessageFun = async (e) => {
+    e.preventDefault();
+    try {
+      await axiosFun(
+        sendMessage(
+          auth.conversations.name,
+          match.params.roomId,
+          match.params.name,
+          auth.conversations.userId,
+          `https://avatars.dicebear.com/api/jdenticon/${match.params.img}.svg`,
+          message,
+          match.params.description,
+          "chatRoom"
+        )
+      );
+      setMessage("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -45,13 +67,35 @@ const ChatArea = ({ match, auth }) => {
                 authorName={chat.authorName}
                 message={chat.message}
                 sentAt={chat.sentAt}
-                sender={chat.authorId === userId ? true : false}
+                sender={
+                  chat.authorId === auth.conversations.userId ? true : false
+                }
               />
             ))}
           </div>
           <div className="mobile_chat_footer">
-            <form>
-              <input type="text" placeholder="Type a message" />
+            {auth.currentConversationMessages !== undefined &&
+              auth.currentConversationMessages &&
+              auth.currentConversationMessages.items.map((chat, idx) => (
+                <ChatBubble
+                  key={idx}
+                  authorName={chat.authorName}
+                  message={chat.message}
+                  sentAt={chat.sentAt}
+                  sender={
+                    chat.authorId === auth.conversations.userId ? true : false
+                  }
+                />
+              ))}
+          </div>
+          <div className="chat_footer">
+            <form onSubmit={(e) => sendMessageFun(e)}>
+              <input
+                type="text"
+                placeholder="Type a message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
               <button> Send a message</button>
             </form>
           </div>

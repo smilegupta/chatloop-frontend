@@ -42,7 +42,7 @@ const Sidebar = ({ auth }) => {
 
   return (
     <Fragment>
-      {auth.conversations ? (
+      {auth.conversations && auth.subscriptionArray ? (
         <div className="sidebar">
           <div className="sidebar_header">
             <Avatar src={auth.conversations.profileImage} />
@@ -59,10 +59,10 @@ const Sidebar = ({ auth }) => {
             </div>
           </div>
           <div className="sidebar_chats">
-            {auth.conversations.conversations.items.length > 0 ? (
+            {auth.subscriptionArray.length ? (
               <Fragment>
                 {" "}
-                {auth.conversations.conversations.items
+                {auth.subscriptionArray
                   .sort(
                     (a, b) =>
                       new Date(b.lastMessageAt) - new Date(a.lastMessageAt)
@@ -77,6 +77,8 @@ const Sidebar = ({ auth }) => {
                       conversationImage={chat.conversationImage}
                       conversationType={chat.conversationType}
                       description={chat.description}
+                      auth={auth}
+                      newMessages={chat.newMessages}
                     />
                   ))}
               </Fragment>
