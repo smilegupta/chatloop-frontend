@@ -55,6 +55,7 @@ const Login = ({ auth }) => {
       auth.setUser(res);
       const conversation = await axiosFun(listUserDetails(res.username))
       auth.setConversations(conversation.data.listUserss.items[0])
+      auth.setSubscriptionArray(conversation.data.listUserss.items[0].conversations.items)
       history.push(`/`);
     } catch (err) {
       let error = err.message;
