@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Avatar, Grid } from "@material-ui/core";
 import "./ChatArea.css";
@@ -9,6 +10,7 @@ import ChatBubble from "./ChatBubble";
 
 const ChatArea = ({ match, auth }) => {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [data, setData] = useState(null);
   const scrollref = useRef();
   useEffect(() => {
@@ -32,8 +34,19 @@ const ChatArea = ({ match, auth }) => {
     });
   };
 
+  // Validation
+  const validateFields = () => {
+    setError("");
+    if (message === null || message === "") {
+      setError("You can't send a blank message");
+      return false;
+    }
+    return true;
+  };
+
   const sendMessageFun = async (e) => {
     e.preventDefault();
+    if (!validateFields()) return;
     try {
       await axiosFun(
         sendMessage(
@@ -82,6 +95,7 @@ const ChatArea = ({ match, auth }) => {
               ))}
             <div ref={scrollref}></div>
           </div>
+
           <div className="chat_footer">
             <form onSubmit={(e) => sendMessageFun(e)}>
               <input
@@ -89,6 +103,7 @@ const ChatArea = ({ match, auth }) => {
                 placeholder="Type a message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onBlur={validateFields}
               />
               <button> Send a message</button>
             </form>
