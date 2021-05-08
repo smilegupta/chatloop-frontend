@@ -3,7 +3,7 @@
 import { Avatar, Grid } from "@material-ui/core";
 import "./ChatArea.css";
 import { Fragment, useEffect, useState, useRef } from "react";
-import chatImage from "../../../Images/chat3.svg";
+import chatImage from "../../../Images/chat2.svg";
 import { axiosFun } from "../../../CRUD/axios.config";
 import { getMessages, sendMessage } from "../../../CRUD/queries";
 import ChatBubble from "./ChatBubble";
