@@ -71,11 +71,6 @@ const ChatArea = ({ match, auth }) => {
   };
 
   const updateCurrentConversations = (subscriptionDetails) => {
-    console.log("Subscription Id", subscriptionDetails.conversationId);
-    console.log(
-      "Current COnversation Id",
-      auth.currentConversationMessages.conversationId
-    );
     if (
       subscriptionDetails.conversationId ===
       auth.currentConversationMessages.conversationId
@@ -83,7 +78,6 @@ const ChatArea = ({ match, auth }) => {
       auth.currentConversationMessages.items.push(subscriptionDetails);
       const temp = auth.currentConversationMessages;
       auth.setCurrentConversationMessages(temp);
-      console.log(auth.currentConversationMessages.items);
     }
   };
 
@@ -105,8 +99,6 @@ const ChatArea = ({ match, auth }) => {
       graphqlOperation(subscriptionRequest)
     ).subscribe({
       next: (res) => {
-        console.log("Subscription added");
-        console.log(res.value.data.subscribeToNewMessage);
         updateCurrentConversations(res.value.data.subscribeToNewMessage);
         updateSubscriptionArray(res.value.data.subscribeToNewMessage);
         auth.setSubscriptionArray(auth.subscriptionArray);

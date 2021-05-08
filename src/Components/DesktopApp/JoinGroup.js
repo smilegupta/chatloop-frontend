@@ -61,7 +61,6 @@ export default function JoinGroup({ open, setOpen, auth }) {
   useEffect(() => {
     async function fetchData() {
       const response = await axiosFun(listAllChatRooms);
-      console.log(response.data.listChatRoomss.items);
       setChatRoomList(response.data.listChatRoomss.items);
     }
     fetchData();

@@ -31,20 +31,13 @@ const SidebarChat = ({
   };
 
   const updateCurrentConversations = (subscriptionDetails) => {
-    console.log("Subscription Id", subscriptionDetails.conversationId);
-    console.log(
-      "Current COnversation Id",
-      auth.currentConversationMessages.conversationId
-    );
     if (
       subscriptionDetails.conversationId ===
       auth.currentConversationMessages.conversationId
     ) {
       auth.currentConversationMessages.items.push(subscriptionDetails);
       const temp = auth.currentConversationMessages;
-      // auth.setCurrentConversationMessages([])
       auth.setCurrentConversationMessages(temp);
-      console.log(auth.currentConversationMessages.items);
     }
   };
 
@@ -67,7 +60,6 @@ const SidebarChat = ({
       graphqlOperation(subscriptionRequest)
     ).subscribe({
       next: (res) => {
-        console.log(res)
         updateCurrentConversations(res.value.data.subscribeToNewMessage);
         updateSubscriptionArray(res.value.data.subscribeToNewMessage);
         auth.setSubscriptionArray([]);
@@ -77,8 +69,6 @@ const SidebarChat = ({
   };
 
   const resetNewMessages = (conversationId) => {
-    console.log(conversationId);
-
     const temp = auth.subscriptionArray.map((data) => {
       if (data.conversationId === conversationId) data.newMessages = 0;
       return data;
@@ -97,9 +87,7 @@ const SidebarChat = ({
   useEffect(() => {
     auth.setSubscriptionArray(auth.subscriptionArray);
   }, [auth.subscriptionArray]);
-
-  console.log("Auth", auth)
-
+  
   return (
     <Link
       to={`/rooms/${chatRoomId}/${name}/${description}/${conversationImage.substring(
