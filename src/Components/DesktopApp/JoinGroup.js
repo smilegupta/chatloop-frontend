@@ -55,10 +55,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function JoinGroup({ open, setOpen, auth }) {
+  
   const classes = useStyles();
-  const [chatRoomList, setChatRoomList] = useState();
+  const [chatRoomList, setChatRoomList] = useState(null);
   const [modalStyle] = useState(getModalStyle);
 
+  console.log(auth.conversations.conversations.items)
+  console.log(chatRoomList)
+  
   useEffect(() => {
     async function fetchData() {
       const response = await axiosFun(listAllChatRooms);
@@ -66,6 +70,11 @@ export default function JoinGroup({ open, setOpen, auth }) {
     }
     fetchData();
   }, [open]);
+  
+  const newListMaker = () => {
+      const userChatRoomIds = auth.conversations.conversations.items.map(conversation => conversation.conversationId);
+      return chatRoomList.filter(room => !(userChatRoomIds.includes(room.chatRoomId)))
+  }
 
   const joinGroupFun = async (
     chatRoomId,
@@ -121,32 +130,39 @@ export default function JoinGroup({ open, setOpen, auth }) {
             Explore Rooms
           </Typography>
           <List className={classes.root}>
-            {chatRoomList &&
-              chatRoomList.map((list, idx) => (
-                <Fragment key={idx}>
-                  <ListItem
-                    alignItems="flex-start"
-                    onClick={() =>
-                      joinGroupFun(
-                        list.chatRoomId,
-                        list.chatRoomImage,
-                        list.name,
-                        list.description
-                      )
-                    }
-                    className="cursor-pointer"
-                  >
-                    <ListItemAvatar>
-                      <Avatar alt={list.name} src={list.chatRoomImage} />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={list.name}
-                      secondary={<Fragment>{list.description}</Fragment>}
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </Fragment>
-              ))}
+            {chatRoomList && newListMaker().length ? (<Fragment>
+              {
+                newListMaker().map((list, idx) => (
+                  <Fragment key={idx}>
+                    <ListItem
+                      alignItems="flex-start"
+                      onClick={() =>
+                        joinGroupFun(
+                          list.chatRoomId,
+                          list.chatRoomImage,
+                          list.name,
+                          list.description
+                        )
+                      }
+                      className="cursor-pointer"
+                    >
+                      <ListItemAvatar>
+                        <Avatar alt={list.name} src={list.chatRoomImage} />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={list.name}
+                        secondary={<Fragment>{list.description}</Fragment>}
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </Fragment>
+                ))
+              }
+            </Fragment>) : (<Fragment>
+             <div>
+             <span style={{display:"block", textAlign:"center"}}> You are already a part of all the available groups! Great going. </span> 
+             </div>
+            </Fragment>)}
           </List>
         </div>
       </Modal>
