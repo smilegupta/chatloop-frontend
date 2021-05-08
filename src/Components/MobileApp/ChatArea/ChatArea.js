@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { axiosFun } from "../../../CRUD/axios.config";
 import { getMessages, sendMessage } from "../../../CRUD/queries";
 import ChatBubble from "./ChatBubble";
+import { API, graphqlOperation } from "aws-amplify";
 
 const ChatArea = ({ match, auth }) => {
   const [message, setMessage] = useState("");
@@ -53,6 +54,73 @@ const ChatArea = ({ match, auth }) => {
       console.error(err);
     }
   };
+
+  const updateSubscriptionArray = (subscriptionDetails) => {
+    auth.subscriptionArray.forEach((data) => {
+      if (data.conversationId === subscriptionDetails.conversationId) {
+        data.lastMessage = subscriptionDetails.message;
+        data.lastMessageAt = subscriptionDetails.sentAt;
+        if (
+          subscriptionDetails.conversationId !==
+          auth.currentConversationMessages.conversationId
+        )
+          data.newMessages =
+            "newMessages" in data ? (data.newMessages += 1) : 1;
+      }
+    });
+  };
+
+  const updateCurrentConversations = (subscriptionDetails) => {
+    console.log("Subscription Id", subscriptionDetails.conversationId);
+    console.log(
+      "Current COnversation Id",
+      auth.currentConversationMessages.conversationId
+    );
+    if (
+      subscriptionDetails.conversationId ===
+      auth.currentConversationMessages.conversationId
+    ) {
+      auth.currentConversationMessages.items.push(subscriptionDetails);
+      const temp = auth.currentConversationMessages;
+      auth.setCurrentConversationMessages(temp);
+      console.log(auth.currentConversationMessages.items);
+    }
+  };
+
+  const subscriptionRequest = `
+  subscription MySubscription {
+    subscribeToNewMessage(conversationId: "${match.params.roomId}") {
+        authorId
+        authorName
+        message
+        sentAt
+        conversationId
+    }
+  }
+`;
+
+  let subscriptionOnCreate;
+  const subscription = () => {
+    subscriptionOnCreate = API.graphql(
+      graphqlOperation(subscriptionRequest)
+    ).subscribe({
+      next: (res) => {
+        console.log("Subscription added");
+        console.log(res.value.data.subscribeToNewMessage);
+        updateCurrentConversations(res.value.data.subscribeToNewMessage);
+        updateSubscriptionArray(res.value.data.subscribeToNewMessage);
+        auth.setSubscriptionArray(auth.subscriptionArray);
+      },
+    });
+  };
+
+  useEffect(() => {
+    subscription();
+    return () => {
+      subscriptionOnCreate.unsubscribe();
+    };
+  }, []);
+
   return (
     <>
       {data && data.length > 0 && (

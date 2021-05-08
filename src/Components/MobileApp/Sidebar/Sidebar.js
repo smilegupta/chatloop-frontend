@@ -42,7 +42,6 @@ const Sidebar = ({ auth }) => {
         <div className="mobile_sidebar">
           <div className="mobile_sidebar_header">
             <Avatar src={auth.conversations.profileImage} />
-
             <div className="side_header_right">
               <IconButton>
                 <SearchOutlinedIcon />
@@ -56,10 +55,10 @@ const Sidebar = ({ auth }) => {
             </div>
           </div>
           <div className="mobile_sidebar_chats">
-            {auth.conversations.conversations.items.length > 0 ? (
+            {auth.subscriptionArray.length > 0 ? (
               <Fragment>
                 {" "}
-                {auth.conversations.conversations.items
+                {auth.subscriptionArray
                   .sort(
                     (a, b) =>
                       new Date(b.lastMessageAt) - new Date(a.lastMessageAt)
