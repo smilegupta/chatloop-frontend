@@ -17,6 +17,10 @@ const ChatArea = ({ match, auth }) => {
   const getChats = async () => {
     const res = await axiosFun(getMessages(match.params.roomId));
     setData(res.data.listMessagess.items);
+    auth.currentConversationMessages = {
+      conversationId: match.params.roomId,
+      ...res.data.listMessagess,
+    };
     auth.setCurrentConversationMessages({
       conversationId: match.params.roomId,
       ...res.data.listMessagess,

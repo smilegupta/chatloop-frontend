@@ -138,7 +138,7 @@ export const sendMessage = (
 export const getMessages = (chatId) => {
   const query = {
     query: `query getmessages {
-      listMessagess(conversationId: "${chatId}") {
+      listMessagess(conversationId: "${chatId}", limit: 100000) {
         items {
           authorId
           authorName
