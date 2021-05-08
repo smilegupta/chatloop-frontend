@@ -2,10 +2,7 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/smilegupta)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/smilegupta) [![Made With Love](https://img.shields.io/badge/Made%20With-Love-orange.svg)](https://github.com/smilegupta)
 
-Notes Yard is a highly scalable, low cost and high performant one stop solution to:
-- Upload images and get sharable link and getting iframes to add in your website
-- A Markdown Editor
-- Creating private notebooks and notes
+Chat Loop is a highly scalable, low cost and high performant chat application built on AWS and React leveraging GraphQL subscriptions for real time communication.
 
 # Project Overview
 
@@ -14,7 +11,7 @@ Notes Yard is a highly scalable, low cost and high performant one stop solution 
 
 Frontend Code -> [https://github.com/smilegupta/chatloop-frontend](https://github.com/smilegupta/chatloop-frontend)
 <br>
-Deployed URL -> [https://notes-yard.smilegupta.tech/](https://notes-yard.smilegupta.tech/)
+Deployed URL -> [https://chat-loop.smilegupta.tech/](https://chat-loop.smilegupta.tech/)
 <br>
 Backend Code -> [https://github.com/smilegupta/chatloop-backend](https://github.com/smilegupta/chatloop-backend)
 <br>
