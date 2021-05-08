@@ -1,8 +1,22 @@
-import { useState } from "react";
-import { makeStyles, Typography, Tabs, Tab } from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-// import { axiosFun } from "../../CRUD/axios.config";
-// import { createChatRoom, sendMessage, listUserDetails } from "../../CRUD/queries";
+import React, { useState, Fragment, useEffect } from "react";
+import {
+  makeStyles,
+  Typography,
+  Modal,
+  List,
+  ListItem,
+  Divider,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from "@material-ui/core";
+import {
+  listAllChatRooms,
+  getLastMessage,
+  joinChatRoom,
+  listUserDetails,
+} from "../../CRUD/queries";
+import { axiosFun } from "../../CRUD/axios.config";
 import { toast } from "react-toastify";
 toast.configure();
 
@@ -30,23 +44,73 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
     display: "block",
   },
+  root: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+  },
+  inline: {
+    display: "inline",
+  },
 }));
 
 export default function JoinGroup({ open, setOpen, auth }) {
   const classes = useStyles();
+  const [chatRoomList, setChatRoomList] = useState();
   const [modalStyle] = useState(getModalStyle);
-  const [value, setValue] = useState(2);
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//   };
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axiosFun(listAllChatRooms);
+      console.log(response.data.listChatRoomss.items);
+      setChatRoomList(response.data.listChatRoomss.items);
+    }
+    fetchData();
+  }, []);
+
+  const joinGroupFun = async (
+    chatRoomId,
+    chatRoomImage,
+    chatRoomName,
+    chatDescription
+  ) => {
+    try {
+      const res = await axiosFun(getLastMessage(chatRoomId));
+      await axiosFun(
+        joinChatRoom(
+          chatRoomId,
+          chatRoomImage,
+          chatRoomName,
+          "chatRoom",
+          res.data.listMessagess.items[0].message,
+          res.data.listMessagess.items[0].sentAt,
+          auth.conversations.userId,
+          chatDescription
+        )
+      );
+      const message = "Chat Room Joined Successfully";
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 0,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      const conversation = await axiosFun(
+        listUserDetails(auth.conversations.userId)
+      );
+      auth.setConversations(conversation.data.listUserss.items[0]);
+      auth.setSubscriptionArray(
+        conversation.data.listUserss.items[0].conversations.items
+      );
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
   };
 
   return (
@@ -54,19 +118,36 @@ export default function JoinGroup({ open, setOpen, auth }) {
       <Modal open={open} onClose={() => handleClose()}>
         <div style={modalStyle} className={classes.paper}>
           <Typography variant="h5" gutterBottom color="secondary">
-            Explore Rooms/Users
+            Explore Rooms
           </Typography>
-          <>
-      <Tabs
-        value={value}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
-      >
-        <Tab label="Rooms" />
-        <Tab label="Groups" />
-      </Tabs>
-    </>
+          <List className={classes.root}>
+            {chatRoomList &&
+              chatRoomList.map((list, idx) => (
+                <Fragment key={idx}>
+                  <ListItem
+                    alignItems="flex-start"
+                    onClick={() =>
+                      joinGroupFun(
+                        list.chatRoomId,
+                        list.chatRoomImage,
+                        list.name,
+                        list.description
+                      )
+                    }
+                    className="cursor-pointer"
+                  >
+                    <ListItemAvatar>
+                      <Avatar alt={list.name} src={list.chatRoomImage} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={list.name}
+                      secondary={<Fragment>{list.description}</Fragment>}
+                    />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </Fragment>
+              ))}
+          </List>
         </div>
       </Modal>
     </div>

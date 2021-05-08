@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Avatar, Grid } from "@material-ui/core";
 import "./ChatArea.css";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 import chatImage from "../../../Images/chat3.svg";
 import { axiosFun } from "../../../CRUD/axios.config";
 import { getMessages, sendMessage } from "../../../CRUD/queries";
@@ -10,9 +10,14 @@ import ChatBubble from "./ChatBubble";
 const ChatArea = ({ match, auth }) => {
   const [message, setMessage] = useState("");
   const [data, setData] = useState(null);
+  const scrollref = useRef();
   useEffect(() => {
     getChats();
   }, [match.params.roomId]);
+
+  useEffect(() => {
+    scrollref.current?.scrollIntoView({ behaviour: "smooth" });
+  });
 
   const getChats = async () => {
     const res = await axiosFun(getMessages(match.params.roomId));
@@ -25,7 +30,6 @@ const ChatArea = ({ match, auth }) => {
       conversationId: match.params.roomId,
       ...res.data.listMessagess,
     });
-    console.log("Right side data", auth.currentConversationMessages);
   };
 
   const sendMessageFun = async (e) => {
@@ -76,6 +80,7 @@ const ChatArea = ({ match, auth }) => {
                   }
                 />
               ))}
+            <div ref={scrollref}></div>
           </div>
           <div className="chat_footer">
             <form onSubmit={(e) => sendMessageFun(e)}>

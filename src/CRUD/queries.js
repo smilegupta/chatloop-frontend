@@ -32,6 +32,7 @@ export const listAllChatRooms = {
           items {
             chatRoomId
             chatRoomImage
+            description
             name
           }
         }
@@ -146,6 +147,45 @@ export const getMessages = (chatId) => {
           messageId
           sentAt
         }
+      }
+    }
+    `,
+  };
+  return query;
+};
+
+export const getLastMessage = (chatRoomId) => {
+  const query = {
+    query: `query MyQuery {
+      listMessagess(conversationId: "${chatRoomId}", sortDirection: DESC, limit: 1) {
+        items {
+          message
+          sentAt
+        }
+      }
+    }`,
+  };
+  return query;
+};
+
+export const joinChatRoom = (
+  conversationId,
+  conversationImage,
+  conversationName,
+  conversationType,
+  lastMessage,
+  lastMessageAt,
+  userId,
+  description
+) => {
+  const query = {
+    query: `mutation JoinChatRoom {
+      createUserConversations(input: {conversationId: "${conversationId}", description:"${description}", conversationImage: "${conversationImage}", conversationName: "${conversationName}", conversationType: ${conversationType}, lastMessage: "${lastMessage}", lastMessageAt: "${lastMessageAt}", userId: "${userId}"}) {
+        conversationType
+        conversationId
+        conversationName
+        lastMessage
+        lastMessageAt
       }
     }
     `,
