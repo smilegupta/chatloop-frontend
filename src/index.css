@@ -91,3 +91,10 @@ a {
 .MuiTab-root {
   width: 50%;
 }
+
+.error_texts{
+  color: red;
+  margin-bottom: 20px;
+  display: block;
+  font-size: 12px;
+}

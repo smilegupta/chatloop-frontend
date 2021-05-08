@@ -8,6 +8,7 @@ import {
   listUserDetails,
 } from "../../CRUD/queries";
 import { toast } from "react-toastify";
+import _ from "lodash";
 toast.configure();
 
 function getModalStyle() {
@@ -15,8 +16,8 @@ function getModalStyle() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "40vw",
-    height: "40vh",
+    width: "50vw",
+    height: "50vh",
   };
 }
 
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   field: {
     marginTop: 20,
-    marginBottom: 20,
     display: "block",
   },
 }));
@@ -46,9 +46,63 @@ export default function CreateGroup({ open, setOpen, auth }) {
   const [modalStyle] = useState(getModalStyle);
   const [chatName, setChatName] = useState("");
   const [description, setDescription] = useState("");
+  let [visited, setVisited] = useState({
+    chatName: false,
+    description: false,
+  });
+  let [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  // Final Validation
+  const finalValidate = () => {
+    errors = {};
+
+    if (chatName === undefined || chatName === "")
+      errors.name = "Please enter group name";
+
+    if (description === undefined || description === "")
+      errors.description = "Please enter group description";
+
+    setErrors(errors);
+
+    if (Object.entries(errors).length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // Initial Validation
+  const doValidate = () => {
+    errors = {};
+
+    if ((chatName === undefined || chatName === "") && visited.name)
+      errors.name = "Please enter group name";
+
+    if ((description === undefined || description === "") && visited.name)
+      errors.description = "Please enter group description";
+
+    setErrors(errors);
+
+    if (Object.entries(errors).length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // Handle Visited Fields
+  const handleVisited = (e) => {
+    let { name } = e.target || e;
+    _.set(visited, name, true);
+    setVisited({ ...visited });
+    doValidate();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!finalValidate()) return;
+    setLoading(true);
     try {
       const output = await axiosFun(
         createChatRoom(userId, chatName, description, name)
@@ -83,6 +137,7 @@ export default function CreateGroup({ open, setOpen, auth }) {
       setDescription("");
       setChatName("");
       setOpen(false);
+      setLoading(false);
     } catch (error) {
       toast.error(error.message, {
         position: "top-right",
@@ -92,7 +147,9 @@ export default function CreateGroup({ open, setOpen, auth }) {
         pauseOnHover: true,
         draggable: true,
       });
+      setLoading(false);
     }
+    setLoading(false);
   };
 
   const handleClose = () => {
@@ -121,7 +178,10 @@ export default function CreateGroup({ open, setOpen, auth }) {
               }}
               value={chatName}
               onChange={(e) => setChatName(e.target.value)}
+              onBlur={handleVisited}
+              name="chatName"
             />
+            <span className="error_texts">{errors.chatName || ""}</span>
 
             <TextField
               className={classes.field}
@@ -137,13 +197,17 @@ export default function CreateGroup({ open, setOpen, auth }) {
               inputProps={{
                 maxLength: 128,
               }}
+              onBlur={handleVisited}
+              name="description"
             />
+            <span className="error_texts">{errors.description || ""}</span>
             <Button
               type="submit"
               color="primary"
               variant="contained"
               disableElevation
               align="right"
+              disabled={loading}
             >
               Create Group
             </Button>
