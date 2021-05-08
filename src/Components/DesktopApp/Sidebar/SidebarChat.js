@@ -31,11 +31,6 @@ const SidebarChat = ({
   };
 
   const updateCurrentConversations = (subscriptionDetails) => {
-    console.log("Subscription Id", subscriptionDetails.conversationId);
-    console.log(
-      "Current COnversation Id",
-      auth.currentConversationMessages.conversationId
-    );
     if (
       subscriptionDetails.conversationId ===
       auth.currentConversationMessages.conversationId
@@ -44,7 +39,6 @@ const SidebarChat = ({
       const temp = auth.currentConversationMessages;
       // auth.setCurrentConversationMessages([])
       auth.setCurrentConversationMessages(temp);
-      console.log(auth.currentConversationMessages.items);
     }
   };
 
@@ -76,8 +70,6 @@ const SidebarChat = ({
   };
 
   const resetNewMessages = (conversationId) => {
-    console.log(conversationId);
-
     const temp = auth.subscriptionArray.map((data) => {
       if (data.conversationId === conversationId) data.newMessages = 0;
       return data;

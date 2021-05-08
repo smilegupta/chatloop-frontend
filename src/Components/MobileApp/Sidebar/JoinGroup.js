@@ -15,8 +15,8 @@ import {
   getLastMessage,
   joinChatRoom,
   listUserDetails,
-} from "../../CRUD/queries";
-import { axiosFun } from "../../CRUD/axios.config";
+} from "../../../CRUD/queries";
+import { axiosFun } from "../../../CRUD/axios.config";
 import { toast } from "react-toastify";
 toast.configure();
 
@@ -25,7 +25,7 @@ function getModalStyle() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "40vw",
+    width: "60vw",
     height: "70vh",
   };
 }

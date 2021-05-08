@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Avatar, IconButton } from "@material-ui/core";
 import "./ChatArea.css";
@@ -11,6 +12,7 @@ import { API, graphqlOperation } from "aws-amplify";
 
 const ChatArea = ({ match, auth }) => {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [data, setData] = useState(null);
   const scrollref = useRef();
   useEffect(() => {
@@ -34,8 +36,19 @@ const ChatArea = ({ match, auth }) => {
     });
   };
 
+  // Validation
+  const validateFields = () => {
+    setError("");
+    if (message === null || message === "") {
+      setError("You can't send a blank message");
+      return false;
+    }
+    return true;
+  };
+
   const sendMessageFun = async (e) => {
     e.preventDefault();
+    if (!validateFields()) return;
     try {
       await axiosFun(
         sendMessage(
@@ -71,11 +84,6 @@ const ChatArea = ({ match, auth }) => {
   };
 
   const updateCurrentConversations = (subscriptionDetails) => {
-    console.log("Subscription Id", subscriptionDetails.conversationId);
-    console.log(
-      "Current COnversation Id",
-      auth.currentConversationMessages.conversationId
-    );
     if (
       subscriptionDetails.conversationId ===
       auth.currentConversationMessages.conversationId
@@ -83,7 +91,6 @@ const ChatArea = ({ match, auth }) => {
       auth.currentConversationMessages.items.push(subscriptionDetails);
       const temp = auth.currentConversationMessages;
       auth.setCurrentConversationMessages(temp);
-      console.log(auth.currentConversationMessages.items);
     }
   };
 
@@ -105,8 +112,6 @@ const ChatArea = ({ match, auth }) => {
       graphqlOperation(subscriptionRequest)
     ).subscribe({
       next: (res) => {
-        console.log("Subscription added");
-        console.log(res.value.data.subscribeToNewMessage);
         updateCurrentConversations(res.value.data.subscribeToNewMessage);
         updateSubscriptionArray(res.value.data.subscribeToNewMessage);
         auth.setSubscriptionArray(auth.subscriptionArray);
@@ -162,6 +167,7 @@ const ChatArea = ({ match, auth }) => {
                 placeholder="Type a message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onBlur={validateFields}
               />
               <button> Send a message</button>
             </form>
