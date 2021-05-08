@@ -9,11 +9,13 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Fragment, useState } from "react";
 import CreateGroup from "../CreateGroup";
+import JoinGroup from "./JoinGroup";
 toast.configure();
 
 const Sidebar = ({ auth }) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [openJoinGroup, setOpenJoinGroup] = useState(false);
   // Logout Function
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -43,7 +45,7 @@ const Sidebar = ({ auth }) => {
           <div className="mobile_sidebar_header">
             <Avatar src={auth.conversations.profileImage} />
             <div className="side_header_right">
-              <IconButton>
+              <IconButton onClick={() => setOpenJoinGroup(true)}>
                 <SearchOutlinedIcon />
               </IconButton>
               <IconButton onClick={() => setOpen(true)}>
@@ -85,6 +87,7 @@ const Sidebar = ({ auth }) => {
               </div>
             )}
           </div>
+          <JoinGroup open={openJoinGroup} setOpen={setOpenJoinGroup} auth={auth} />
           <CreateGroup open={open} setOpen={setOpen} auth={auth} />
         </div>
       )}
