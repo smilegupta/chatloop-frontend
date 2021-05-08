@@ -34,7 +34,7 @@ API Docs -> [https://kb4r9.csb.app/](https://kb4r9.csb.app/)
 <b>Deployment</b>: CI/CD setup using GitHub Actions via Serverless Framework
 
 <p align="center">
-  <img src=https://image-dock-uploads-be.s3.ap-south-1.amazonaws.com/image.2021-05-08T18%3A07%3A05.578Z" />
+  <img src="https://image-dock-uploads-be.s3.ap-south-1.amazonaws.com/image.2021-05-08T18%3A07%3A05.578Z" />
 </p>
 <p align="center">
   Architectural  Diargram 
