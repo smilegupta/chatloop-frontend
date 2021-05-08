@@ -89,7 +89,7 @@ const Sidebar = ({ auth }) => {
               </div>
             )}
           </div>
-          <JoinGroup open={openJoinGroup} setOpen={setOpenJoinGroup} />
+          <JoinGroup open={openJoinGroup} setOpen={setOpenJoinGroup} auth={auth} />
           <CreateGroup open={open} setOpen={setOpen} auth={auth} />
         </div>
       ) : (

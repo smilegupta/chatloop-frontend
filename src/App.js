@@ -18,7 +18,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [conversations, setConversations] = useState(null);
   const [subscriptionArray, setSubscriptionArray] = useState(null);
-  const [currentConversationMessages, setCurrentConversationMessages] = useState(null);
+  let [currentConversationMessages, setCurrentConversationMessages] = useState(null);
 
   // Props for Session Management
   const authProps = {
