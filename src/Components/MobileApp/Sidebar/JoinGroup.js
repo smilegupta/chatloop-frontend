@@ -65,7 +65,7 @@ export default function JoinGroup({ open, setOpen, auth }) {
       setChatRoomList(response.data.listChatRoomss.items);
     }
     fetchData();
-  }, []);
+  }, [open]);
 
   const joinGroupFun = async (
     chatRoomId,
