@@ -67,6 +67,7 @@ const SidebarChat = ({
       graphqlOperation(subscriptionRequest)
     ).subscribe({
       next: (res) => {
+        console.log(res)
         updateCurrentConversations(res.value.data.subscribeToNewMessage);
         updateSubscriptionArray(res.value.data.subscribeToNewMessage);
         auth.setSubscriptionArray([]);
@@ -96,6 +97,9 @@ const SidebarChat = ({
   useEffect(() => {
     auth.setSubscriptionArray(auth.subscriptionArray);
   }, [auth.subscriptionArray]);
+
+  console.log("Auth", auth)
+
   return (
     <Link
       to={`/rooms/${chatRoomId}/${name}/${description}/${conversationImage.substring(
