@@ -31,10 +31,6 @@ const NewPassword = () => {
   const classes = useStyles();
   const [verificationCode, setverificationCode] = useState("");
   const [password, setpassword] = useState("");
-  // eslint-disable-next-line
-  const [verificationCodeError, setverificationCodeError] = useState(false);
-  // eslint-disable-next-line
-  const [passwordError, setpasswordError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,19 +94,17 @@ const NewPassword = () => {
               fullWidth
               className={classes.field}
               type="text"
-              error={verificationCodeError}
               onChange={(e) => setverificationCode(e.target.value)}
               value={verificationCode}
             />
             <TextField
               onChange={(e) => setpassword(e.target.value)}
-              label="New Password"
+              label="New Password (min 8 chars: lc+uc+sc+num)"
               variant="outlined"
               required
               fullWidth
               type="password"
               className={classes.field}
-              error={passwordError}
             />
             <Button
               type="submit"

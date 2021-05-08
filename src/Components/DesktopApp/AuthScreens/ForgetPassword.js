@@ -30,8 +30,6 @@ const ForgetPassword = () => {
   const history = useHistory();
   const classes = useStyles();
   const [email, setemail] = useState(params.email);
-  // eslint-disable-next-line
-  const [emailError, setemailError] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -101,7 +99,6 @@ const ForgetPassword = () => {
               fullWidth
               className={classes.field}
               type="email"
-              error={emailError}
               onChange={(e) => setemail(e.target.value)}
             />
             <Button
