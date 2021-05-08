@@ -32,10 +32,6 @@ const Login = ({ auth }) => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [resendEmail, setResendEmail] = useState(false);
-  // eslint-disable-next-line
-  const [emailError, setemailError] = useState(false);
-  // eslint-disable-next-line
-  const [passwordError, setpasswordError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -138,7 +134,6 @@ const Login = ({ auth }) => {
               fullWidth
               className={classes.field}
               type="email"
-              error={emailError}
               onChange={(e) => setemail(e.target.value)}
             />
             {resendEmail && (
@@ -163,7 +158,6 @@ const Login = ({ auth }) => {
               required
               fullWidth
               type="password"
-              error={passwordError}
               className={classes.field}
             />
             <Typography

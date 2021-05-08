@@ -126,7 +126,7 @@ const Signup = () => {
             />
             <TextField
               onChange={(e) => setpassword(e.target.value)}
-              label="Password"
+              label="Password (min 8 chars: lc+uc+sc+num)"
               variant="outlined"
               required
               fullWidth
