@@ -4,7 +4,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
   background-color: #e1e7f7;
 }
 
@@ -49,7 +48,7 @@
   background-repeat: repeat;
   background-position: center;
   padding: 2% 4%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 /************ mobile_chat Messages ****************/

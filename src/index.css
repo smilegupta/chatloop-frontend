@@ -31,7 +31,7 @@ a {
 .app_mobile_body {
   display: flex;
   background-color: #3855aa;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 }
 
@@ -97,6 +97,13 @@ a {
   margin-bottom: 20px;
   display: block;
   font-size: 12px;
+}
+
+
+:root:-webkit-scrollbar
+{
+    display: none;
+    width:0px;
 }
 
 

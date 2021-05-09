@@ -27,7 +27,7 @@ function getModalStyle() {
     transform: "translate(-50%, -50%)",
     width: "40vw",
     height: "70vh",
-    overflow: "scroll"
+    overflowY: "scroll"
   };
 }
 

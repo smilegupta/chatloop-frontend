@@ -76,7 +76,7 @@
 .sidebar_chats {
   flex: 1;
   background-color: white;
-  overflow: scroll;
+  overflow-y: scroll;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
