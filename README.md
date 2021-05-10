@@ -4,10 +4,10 @@
 
 Chat Loop is a highly scalable, low cost and high performant chat application built on AWS and React leveraging GraphQL subscriptions for real time communication.
 
-# Project Overview
+## Project Overview
 
 
-# Application Links
+## Application Links
 
 Frontend Code -> [https://github.com/smilegupta/chatloop-frontend](https://github.com/smilegupta/chatloop-frontend)
 <br>
@@ -17,7 +17,7 @@ Backend Code -> [https://github.com/smilegupta/chatloop-backend](https://github.
 <br>
 API Docs -> [https://kb4r9.csb.app/](https://kb4r9.csb.app/)
 
-# Tech Stack
+## Tech Stack
 
 <b>Frontned</b>: Reactjs
 <br>
@@ -40,11 +40,11 @@ API Docs -> [https://kb4r9.csb.app/](https://kb4r9.csb.app/)
   Architectural  Diargram 
 </p>
 
-# Overall Functionlity
+## Overall Functionlity
 - Create and join chatrooms
 - Mobile Responsive
 
-# Upcoming Features
+## Upcoming Features
 - Emoji Keypad
 - 1:1 Chats
 - Support to leave group
