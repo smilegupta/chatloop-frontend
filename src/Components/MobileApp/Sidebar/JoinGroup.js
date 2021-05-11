@@ -59,10 +59,6 @@ export default function JoinGroup({ open, setOpen, auth }) {
   const classes = useStyles();
   const [chatRoomList, setChatRoomList] = useState(null);
   const [modalStyle] = useState(getModalStyle);
-
-  console.log(auth.conversations.conversations.items)
-  console.log(chatRoomList)
-  
   useEffect(() => {
     async function fetchData() {
       const response = await axiosFun(listAllChatRooms);
