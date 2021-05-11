@@ -193,6 +193,20 @@ const Login = ({ auth }) => {
             </Typography>
             <Button
               type="submit"
+              color="secondary"
+              variant="contained"
+              disableElevation
+              align="right"
+              onClick = {() => {
+                setemail("ranako5204@animex98.com")
+                setpassword("Testing#123")
+              }}
+            >
+              Guest Login
+            </Button>
+            &nbsp;
+            <Button
+              type="submit"
               color="primary"
               variant="contained"
               disableElevation
