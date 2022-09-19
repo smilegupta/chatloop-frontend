@@ -19,13 +19,13 @@ API Docs -> [https://kb4r9.csb.app/](https://kb4r9.csb.app/)
 
 ## Tech Stack
 
-<b>Frontned</b>: Reactjs
+<b>Frontend</b>: ReactJS
 <br>
 <b>Styling</b>: CSS and Material UI
 <br>
 <b>Database</b>: DynamoDB
 <br>
-<b>Authentication and Authorisation</b>: Cogito and Amplify
+<b>Authentication and Authorization</b>: Cogito and Amplify
 <br>
 <b>Integrations</b>: GraphQL ( AWS AppSync )
 <br>
@@ -37,11 +37,11 @@ API Docs -> [https://kb4r9.csb.app/](https://kb4r9.csb.app/)
   <img src="https://image-dock-uploads-be.s3.ap-south-1.amazonaws.com/image.2021-05-08T18%3A07%3A05.578Z" />
 </p>
 <p align="center">
-  Architectural  Diargram 
+  Architectural  Diagram 
 </p>
 
-## Overall Functionlity
-- Create and join chatrooms
+## Overall Functionality
+- Create and join chat rooms
 - Mobile Responsive
 
 ## Upcoming Features
@@ -49,7 +49,7 @@ API Docs -> [https://kb4r9.csb.app/](https://kb4r9.csb.app/)
 - 1:1 Chats
 - Support to leave group
 - Reply to messages
-- Starring messges
+- Starring messages
 - Delete a message
 - Support for sharing images and files
 - Edit personal profile details like name and profile image
